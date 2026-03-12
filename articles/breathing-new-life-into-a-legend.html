@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breathing New Life into a Legend: The Grob G 109B's High-Tech Evolution | Grob Aircraft SE</title>
+
+  <style>
+    /* ─── GROB AIRCRAFT SE BRAND FONTS ─── */
+    @font-face {
+      font-family: 'Transducer Extended';
+      src: url('../fonts/Transducer-ExtendedRegular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Suisse Intl';
+      src: url('../fonts/SuisseIntl-Light.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Suisse Intl Mono';
+      src: url('../fonts/SuisseIntlMono-Regular-WebXL.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ─── DESIGN TOKENS ─── */
+    :root {
+      --grob-bg:          #141516;
+      --grob-bg-mid:      #1d2125;
+      --grob-bg-warm:     #42464B;
+      --grob-bg-card:     #27292a;
+      --grob-text:        #B4B1AB;
+      --grob-text-light:  #DED6CB;
+      --grob-text-muted:  #8A8783;
+      --grob-text-dim:    #9b9b9b;
+      --grob-accent:      #6e6b66;
+      --grob-accent-dark: #4a4845;
+      --grob-border:      rgba(255,255,255,0.1);
+      --white:            #ffffff;
+      --max-w:            1200px;
+      --font-heading:     'Transducer Extended', system-ui, Arial, sans-serif;
+      --font-body:        'Suisse Intl', system-ui, -apple-system, Arial, sans-serif;
+      --font-mono:        'Suisse Intl Mono', monospace;
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.6;
+      background: var(--grob-bg);
+      color: var(--grob-text);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── NAVIGATION ─── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: var(--grob-bg);
+      border-bottom: 1px solid var(--grob-border);
+      height: 68px;
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .nav__logo { height: 30px; width: auto; }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav__links a {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+      transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--white); }
+    .nav__cta {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.4rem;
+      background: var(--grob-accent);
+      color: var(--white);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-block;
+    }
+    .nav__cta:hover { background: var(--grob-accent-dark); }
+
+    /* ─── ARTICLE LAYOUT ─── */
+    .article-wrapper {
+      padding-top: 68px;
+    }
+
+    /* Hero banner */
+    .article-hero {
+      background: var(--grob-bg-mid);
+      border-bottom: 1px solid var(--grob-border);
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .article-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, var(--grob-accent) 0%, transparent 60%);
+    }
+    .article-hero__inner {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .article-hero__back {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .article-hero__back::before { content: '←'; }
+    .article-hero__back:hover { color: var(--white); }
+    .article-hero__tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--grob-accent);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .article-hero__tag::before {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--grob-accent);
+      flex-shrink: 0;
+    }
+    .article-hero__title {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      line-height: 1.1;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .article-hero__meta {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+    }
+
+    /* Article body */
+    .article-body {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .article-section {
+      margin-bottom: 3.5rem;
+    }
+    .article-section__heading {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--grob-border);
+    }
+    .article-section p {
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--grob-text);
+      margin-bottom: 1.25rem;
+    }
+    .article-section p:last-child { margin-bottom: 0; }
+
+    /* Pull quote */
+    .article-quote {
+      border-left: 3px solid var(--grob-accent);
+      background: var(--grob-bg-mid);
+      padding: 1.75rem 2rem;
+      margin: 2.5rem 0;
+    }
+    .article-quote p {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--grob-text-light);
+      font-style: italic;
+      margin: 0;
+    }
+
+    /* Component list */
+    .article-list {
+      list-style: none;
+      margin: 1.25rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .article-list li {
+      display: flex;
+      gap: 1rem;
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--grob-text);
+    }
+    .article-list li::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      background: var(--grob-accent);
+      flex-shrink: 0;
+      margin-top: 0.65em;
+    }
+    .article-list strong {
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    /* Stat callout row */
+    .article-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--grob-border);
+      border: 1px solid var(--grob-border);
+      margin: 2.5rem 0;
+    }
+    .article-stat {
+      background: var(--grob-bg-mid);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .article-stat__value {
+      font-family: var(--font-heading);
+      font-size: 2.25rem;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .article-stat__value span { color: var(--grob-accent); }
+    .article-stat__label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+    }
+
+    /* CTA bar */
+    .article-cta {
+      background: var(--grob-bg-mid);
+      border: 1px solid var(--grob-border);
+      border-left: 3px solid var(--grob-accent);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 4rem;
+    }
+    .article-cta__text {
+      font-weight: 300;
+      font-size: 0.95rem;
+      color: var(--grob-text-muted);
+      line-height: 1.6;
+    }
+    .article-cta__text strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .btn {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.9rem 2.25rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .btn--primary { background: var(--grob-accent); color: var(--white); }
+    .btn--primary:hover { background: var(--grob-accent-dark); }
+
+    /* Footer */
+    .footer {
+      background: var(--grob-bg);
+      border-top: 1px solid var(--grob-border);
+    }
+    .footer__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .footer__logo { height: 26px; width: auto; }
+    .footer__legal {
+      font-weight: 300;
+      font-size: 0.72rem;
+      color: var(--grob-text-muted);
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+      .article-hero { padding: 4rem 1.5rem 3rem; }
+      .article-body { padding: 3rem 1.5rem 4rem; }
+      .article-stats { grid-template-columns: 1fr; }
+      .footer__inner { flex-direction: column; }
+      .footer__legal { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="../index.html">
+      <img
+        src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png"
+        alt="Grob Aircraft SE"
+        class="nav__logo"
+      />
+    </a>
+    <ul class="nav__links">
+      <li><a href="../index.html#performance">Performance</a></li>
+      <li><a href="../index.html#cockpit">Features</a></li>
+      <li><a href="../index.html#order">Order</a></li>
+      <li><a href="../index.html#faq">FAQ</a></li>
+      <li><a href="../index.html#articles">Articles</a></li>
+    </ul>
+    <a href="../index.html#order" class="nav__cta">Request Offer</a>
+  </div>
+</nav>
+
+
+<div class="article-wrapper">
+
+  <!-- ARTICLE HERO -->
+  <header class="article-hero">
+    <div class="article-hero__inner">
+      <a href="../index.html#articles" class="article-hero__back">Back to Articles</a>
+      <p class="article-hero__tag">Engineering · Modernization</p>
+      <h1 class="article-hero__title">
+        Breathing New Life into a Legend:<br />
+        The Grob G&nbsp;109B's High-Tech Evolution
+      </h1>
+      <div class="article-hero__meta">Grob Aircraft SE &nbsp;·&nbsp; Technical Editorial</div>
+    </div>
+  </header>
+
+
+  <!-- ARTICLE BODY -->
+  <main class="article-body">
+
+    <!-- Section 1 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">The Pilot's Dilemma</h2>
+      <p>
+        The Grob G&nbsp;109B has long been celebrated as a robust touring motor glider, featuring
+        an airframe designed with a sophisticated industrial glass fiber and carbon fiber
+        architecture. However, four decades after its debut, many owners are finding that while
+        their airframes remain structurally pristine, the legacy Grob G&nbsp;2500 engines have
+        reached their 1,600-hour Time Between Overhaul (TBO) several times over. This creates a
+        critical crossroads: retire a beloved icon or find a way to modernize a powertrain that
+        is increasingly starved for spare parts.
+      </p>
+      <p>
+        The Rotax 912iSc3 Sport conversion isn't just a replacement; it is a heart transplant for
+        a legendary airframe. By marrying a flight-proven glider design with contemporary propulsion
+        technology, Grob Aircraft SE has created a pathway for this aircraft to excel in a new era.
+        This modernization ensures that the G&nbsp;109B remains a top-tier performer, offering a
+        seamless blend of classic handling and modern reliability.
+      </p>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">From Obsolete to Cutting-Edge: Why Change Was Mandatory</h2>
+      <p>
+        The release of Service Bulletin OSB817-71 marks a pivotal moment for the global G&nbsp;109B
+        fleet, shifting the narrative from maintenance to modernization. The primary driver for this
+        change is the "obsolescence of parts" for the original G&nbsp;2500 engine, which has made
+        continued operation of the legacy unit an exercise in diminishing returns. For owners, this
+        bulletin turns the threat of permanent grounding into an opportunity to future-proof their
+        investment.
+      </p>
+
+      <div class="article-quote">
+        <p>"Due to the obsolescence of parts for the original G&nbsp;2500 engine, the Rotax 912iSc3
+        has been certified as an alternative engine."</p>
+      </div>
+
+      <p>
+        This certification ensures that the aircraft remains fully compliant and supportable under
+        the authority of the DOA ref. EASA.21J.030. By moving away from an unsupported engine
+        platform, owners can effectively reset the clock on their aircraft's operational utility.
+        This shift transforms a legacy machine into a high-performance modern motorglider that meets
+        current certification standards.
+      </p>
+    </div>
+
+    <!-- Section 3: with stats -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Performance by the Numbers: Shorter, Faster, Stronger</h2>
+      <p>
+        The technical centerpiece of this evolution is the 100 SHP Rotax 912iSc3 Sport engine,
+        paired with the advanced MTV-21-A-C-F/CF170-05 hydraulically controlled constant speed
+        propeller. This combination delivers a 12.5% increase in overall power and a 5.3% boost
+        specifically for take-off performance. These gains are further amplified by a lower total
+        weight, a critical advantage that improves the aircraft's useful load and climb gradients.
+      </p>
+
+      <div class="article-stats">
+        <div class="article-stat">
+          <div class="article-stat__value"><span>−</span>20<span>%</span></div>
+          <div class="article-stat__label">Take-off distance</div>
+        </div>
+        <div class="article-stat">
+          <div class="article-stat__value"><span>+</span>12.5<span>%</span></div>
+          <div class="article-stat__label">Overall power</div>
+        </div>
+        <div class="article-stat">
+          <div class="article-stat__value"><span>+</span>5<span>%</span></div>
+          <div class="article-stat__label">Cruise speed at 5,000 ft</div>
+        </div>
+      </div>
+
+      <p>
+        The most striking improvement is the 20% reduction in take-off distance, which drops to a
+        mere 250 meters under ISA conditions at Sea Level. This allows pilots to operate safely from
+        shorter strips or navigate high-density altitude environments with a renewed margin of safety.
+        Additionally, the G&nbsp;109B now enjoys a 5% increase in cruise speed at 5,000 feet, making
+        cross-country touring more efficient than ever before.
+      </p>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">The Fuel Flexibility Revolution</h2>
+      <p>
+        In an era where fuel availability and environmental impact are at the forefront of aviation
+        discussions, the new engine offers unprecedented flexibility. The Rotax 912iSc3 Sport can
+        operate without restriction on Avgas 100&nbsp;LL, EN&nbsp;228 Super, Super-Plus, and even the
+        environmentally friendly E10. This variety allows operators to source fuel from standard
+        automotive stations when traditional aviation fuel is unavailable or prohibitively expensive.
+      </p>
+      <p>
+        The ability to use E10 is a genuine game-changer for modern cost-efficiency and sustainability
+        in the cockpit. It significantly lowers the hourly operating costs while reducing the lead
+        emissions associated with traditional Avgas. This flexibility, combined with the precision of
+        a modern injection system, ensures the G&nbsp;109B is ready for a changing regulatory landscape.
+      </p>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Silicon Meets the Sky: The ECU Advantage</h2>
+      <p>
+        The transition to the Rotax 912iSc3 Sport moves the G&nbsp;109B from legacy manual engine
+        management into the digital age. The integrated Electronic Control Unit (ECU) optimizes fuel
+        consumption in real-time and handles the complex adjustments that once required constant pilot
+        attention. This reduction in workload allows the pilot to focus on the joy of flight rather
+        than managing mixture and temperature parameters.
+      </p>
+      <p>
+        Inside the cockpit, the modernization is completed by the Kanardia Digi-F digital engine
+        display and its accompanying DAQU unit. This interface replaces cluttered analog gauges with a
+        clean, intuitive display of all vital engine health data. The result is a simplified, modern
+        flight deck experience that enhances situational awareness and provides a level of technical
+        authority previously unseen in this class.
+      </p>
+    </div>
+
+    <!-- Section 6: with list -->
+    <div class="article-section">
+      <h2 class="article-section__heading">More Than Just a Motor: The Complete Transformation Kit</h2>
+      <p>
+        Grob delivers this modernization as a comprehensive "re-kit" (P/N K/OSB817-071) designed to
+        refresh the entire aircraft system. Rather than a simple engine swap, the kit includes
+        redesigned systems that improve safety, electrical capacity, and even the aircraft's aesthetic
+        profile. Every component has been meticulously engineered to integrate with the existing
+        fiber-reinforced airframe.
+      </p>
+      <p>Key components of the transformation kit include:</p>
+      <ul class="article-list">
+        <li>
+          <div>
+            <strong>'Twin-Pack' Fuel System</strong> — Dual electric fuel pumps providing
+            two-fold redundancy for maximum operational safety.
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Upgraded Electrical Suite</strong> — A new starter battery with higher capacity
+            and a dedicated 912iSc3 fuse box for digital reliability.
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Redesigned Cowling</strong> — A new, white-painted engine cover that includes an
+            integrated high-power LED landing light for better visibility.
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Advanced Propeller System</strong> — The MTV-21 constant speed propeller equipped
+            with a hydraulic governor and accumulator for seamless pitch control.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Section 7 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">The Next 40 Years of Flight</h2>
+      <p>
+        The Grob G&nbsp;109B airframe was always ahead of its time, built with a philosophy of
+        endurance that has outlasted its original powerplant. By addressing the obsolescence of the
+        G&nbsp;2500, this high-tech evolution ensures that the rest of the aircraft finally matches
+        the standard of its industrial glass fiber and carbon fiber design. Owners can now look
+        forward to many more years and thousands of hours of worry-free, high-performance flying.
+      </p>
+      <p>
+        As we look toward the future of general aviation, the G&nbsp;109B serves as a masterclass in
+        fleet modernization. It raises a compelling question for every owner of a classic aircraft:
+        is it better to buy a new, unproven design, or to invest in the preservation of a legendary
+        airframe through the application of world-class modern technology? For those who value the
+        heritage of the Grob G&nbsp;109B, the choice to modernize is the most sustainable path to
+        the sky.
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="article-cta">
+      <div class="article-cta__text">
+        <strong>Ready to Modernize Your G&nbsp;109B?</strong>
+        Contact Grob Aircraft SE to receive a personalized conversion offer and secure your
+        place in the 2026 delivery schedule.
+      </div>
+      <a href="../index.html#order" class="btn btn--primary">Request a Personalized Offer</a>
+    </div>
+
+  </main>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <img
+      src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png"
+      alt="Grob Aircraft SE"
+      class="footer__logo"
+    />
+    <div class="footer__legal">
+      &copy; 2026 Grob Aircraft SE. All rights reserved.<br />
+      Prices net, excl. VAT and shipping. Specifications subject to change without notice.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

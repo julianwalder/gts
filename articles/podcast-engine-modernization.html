@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>G 109B Engine Modernization — A Technical Analysis | Grob Aircraft SE</title>
+
+  <style>
+    @font-face {
+      font-family: 'Transducer Extended';
+      src: url('../fonts/Transducer-ExtendedRegular.woff2') format('woff2');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Suisse Intl';
+      src: url('../fonts/SuisseIntl-Light.woff2') format('woff2');
+      font-weight: 300; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Suisse Intl Mono';
+      src: url('../fonts/SuisseIntlMono-Regular-WebXL.woff2') format('woff2');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+
+    :root {
+      --bg:          #141516;
+      --bg-mid:      #1d2125;
+      --bg-card:     #27292a;
+      --text:        #B4B1AB;
+      --text-light:  #DED6CB;
+      --text-muted:  #8A8783;
+      --accent:      #6e6b66;
+      --accent-dark: #4a4845;
+      --border:      rgba(255,255,255,0.1);
+      --white:       #ffffff;
+      --max-w:       1200px;
+      --f-head:      'Transducer Extended', system-ui, Arial, sans-serif;
+      --f-body:      'Suisse Intl', system-ui, -apple-system, Arial, sans-serif;
+      --f-mono:      'Suisse Intl Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--f-body);
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--bg); border-bottom: 1px solid var(--border); height: 68px;
+    }
+    .nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
+    }
+    .nav__logo { height: 30px; width: auto; }
+    .nav__links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .nav__links a {
+      font-family: var(--f-mono); font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-muted); transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--white); }
+    .nav__cta {
+      font-family: var(--f-mono); font-size: 0.65rem; letter-spacing: 0.16em;
+      text-transform: uppercase; padding: 0.6rem 1.4rem; background: var(--accent);
+      color: var(--white); border: none; border-radius: 5px; cursor: pointer;
+      transition: background 0.2s; display: inline-block;
+    }
+    .nav__cta:hover { background: var(--accent-dark); }
+
+    /* ── PAGE ── */
+    .page { padding-top: 68px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--bg-mid);
+      border-bottom: 1px solid var(--border);
+      padding: 5rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, var(--accent) 0%, transparent 60%);
+    }
+    .hero__inner { max-width: 820px; margin: 0 auto; }
+    .hero__back {
+      font-family: var(--f-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-muted);
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-bottom: 2rem; transition: color 0.2s;
+    }
+    .hero__back::before { content: '←'; }
+    .hero__back:hover { color: var(--white); }
+    .hero__tag {
+      font-family: var(--f-mono); font-size: 0.6rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero__tag::before {
+      content: ''; display: block; width: 28px; height: 1px;
+      background: var(--accent); flex-shrink: 0;
+    }
+    .hero__title {
+      font-family: var(--f-head); font-weight: 400;
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      line-height: 1.1; text-transform: uppercase;
+      color: var(--white); margin-bottom: 1.25rem;
+    }
+    .hero__desc {
+      font-weight: 300; font-size: 1rem; line-height: 1.8;
+      color: var(--text); max-width: 640px; margin-bottom: 1.5rem;
+    }
+    .hero__meta {
+      font-family: var(--f-mono); font-size: 0.62rem;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
+    }
+
+    /* ── PLAYER SECTION ── */
+    .player-section { max-width: 820px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+    /* Player card */
+    .player-card {
+      background: var(--bg-mid);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      padding: 2.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .player-card__eyebrow {
+      font-family: var(--f-mono); font-size: 0.58rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.5rem;
+    }
+
+    /* Native audio — fully reset & re-skinned */
+    .audio-wrap { position: relative; }
+    audio {
+      width: 100%;
+      height: 48px;
+      border-radius: 0;
+      outline: none;
+      accent-color: var(--accent);
+    }
+    /* Chromium/Firefox tint via color-scheme */
+    audio { color-scheme: dark; }
+
+    /* Fallback message */
+    .audio-fallback {
+      display: none;
+      font-size: 0.85rem; color: var(--text-muted);
+      padding: 1rem 0;
+    }
+
+    /* Topics list */
+    .topics { margin-top: 2.5rem; }
+    .topics__label {
+      font-family: var(--f-mono); font-size: 0.58rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem;
+    }
+    .topics__list {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none;
+    }
+    .topics__item {
+      font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      border: 1px solid var(--border); padding: 0.35rem 0.85rem;
+    }
+
+    /* Chapters */
+    .chapters { margin-top: 3.5rem; }
+    .chapters__heading {
+      font-family: var(--f-head); font-weight: 400; font-size: 0.85rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--white); margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+    }
+    .chapter-list { list-style: none; }
+    .chapter-item {
+      display: flex; align-items: baseline; gap: 1.25rem;
+      padding: 0.9rem 0; border-bottom: 1px solid var(--border);
+    }
+    .chapter-item:last-child { border-bottom: none; }
+    .chapter-item__time {
+      font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.06em;
+      color: var(--accent); flex-shrink: 0; width: 44px;
+    }
+    .chapter-item__title {
+      font-weight: 300; font-size: 0.93rem; color: var(--text-light);
+    }
+    .chapter-item__desc {
+      font-weight: 300; font-size: 0.82rem; color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    /* CTA */
+    .episode-cta {
+      background: var(--bg-mid);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 2rem 2.5rem;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap; margin-top: 4rem;
+    }
+    .episode-cta__text { font-weight: 300; font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+    .episode-cta__text strong {
+      display: block; font-family: var(--f-head); font-weight: 400;
+      font-size: 0.9rem; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--white); margin-bottom: 0.25rem;
+    }
+    .btn {
+      display: inline-block; font-family: var(--f-mono); font-size: 0.72rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 0.9rem 2.25rem; border: none; border-radius: 5px;
+      cursor: pointer; transition: background 0.2s; line-height: 1; white-space: nowrap;
+    }
+    .btn--primary { background: var(--accent); color: var(--white); }
+    .btn--primary:hover { background: var(--accent-dark); }
+
+    /* Footer */
+    .footer { background: var(--bg); border-top: 1px solid var(--border); }
+    .footer__inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 3rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .footer__logo { height: 26px; width: auto; }
+    .footer__legal {
+      font-weight: 300; font-size: 0.72rem;
+      color: var(--text-muted); text-align: right; line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+      .hero { padding: 4rem 1.5rem 3rem; }
+      .player-section { padding: 3rem 1.5rem 4rem; }
+      .player-card { padding: 1.75rem; }
+      .footer__inner { flex-direction: column; }
+      .footer__legal { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="../index.html">
+      <img
+        src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png"
+        alt="Grob Aircraft SE" class="nav__logo"
+      />
+    </a>
+    <ul class="nav__links">
+      <li><a href="../index.html#performance">Performance</a></li>
+      <li><a href="../index.html#cockpit">Features</a></li>
+      <li><a href="../index.html#order">Order</a></li>
+      <li><a href="../index.html#faq">FAQ</a></li>
+      <li><a href="../index.html#articles">Articles</a></li>
+    </ul>
+    <a href="../index.html#order" class="nav__cta">Request Offer</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero__inner">
+      <a href="../index.html#articles" class="hero__back">Back to Articles</a>
+      <p class="hero__tag">Audio Article · Technical Analysis</p>
+      <h1 class="hero__title">
+        G&nbsp;109B Engine Modernization<br />A Technical Analysis
+      </h1>
+      <p class="hero__desc">
+        A guided technical walkthrough of the G&nbsp;2500 to Rotax 912iSc3 conversion —
+        covering powerplant comparison, performance data, system redundancy, and the
+        operational business case for operators and fleet managers.
+      </p>
+      <div class="hero__meta">
+        Grob Aircraft SE &nbsp;·&nbsp; Audio Article &nbsp;·&nbsp; Service Bulletin OSB817-71
+      </div>
+    </div>
+  </header>
+
+  <!-- PLAYER -->
+  <main class="player-section">
+
+    <div class="player-card">
+      <div class="player-card__eyebrow">Listen to the Article</div>
+
+      <div class="audio-wrap">
+        <audio controls preload="auto" id="podcast-audio">
+          <source src="../audio/g109-modernization-podcast.mp3" type="audio/mpeg" />
+          <p class="audio-fallback">
+            Your browser does not support the audio element.
+            <a href="../audio/g109-modernization-podcast.mp3">Download the audio file</a>.
+          </p>
+        </audio>
+      </div>
+
+      <div class="topics">
+        <p class="topics__label">Topics Covered</p>
+        <ul class="topics__list">
+          <li class="topics__item">Powerplant Comparison</li>
+          <li class="topics__item">ECU &amp; Fuel Injection</li>
+          <li class="topics__item">Constant Speed Propeller</li>
+          <li class="topics__item">Performance Data</li>
+          <li class="topics__item">System Redundancy</li>
+          <li class="topics__item">EASA Certification</li>
+          <li class="topics__item">Operational Business Case</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CHAPTERS -->
+    <div class="chapters">
+      <h2 class="chapters__heading">Episode Outline</h2>
+      <ul class="chapter-list">
+        <li class="chapter-item">
+          <div>
+            <div class="chapter-item__time">00:00</div>
+          </div>
+          <div>
+            <div class="chapter-item__title">Introduction &amp; Strategic Background</div>
+            <div class="chapter-item__desc">Part obsolescence of the G&nbsp;2500 and the case for fleet modernization</div>
+          </div>
+        </li>
+        <li class="chapter-item">
+          <div>
+            <div class="chapter-item__time">~03:00</div>
+          </div>
+          <div>
+            <div class="chapter-item__title">Comparative Powerplant Analysis</div>
+            <div class="chapter-item__desc">G&nbsp;2500 vs. Rotax 912iSc3 — specifications, induction, cooling, and propeller interface</div>
+          </div>
+        </li>
+        <li class="chapter-item">
+          <div>
+            <div class="chapter-item__time">~07:00</div>
+          </div>
+          <div>
+            <div class="chapter-item__title">Fuel Flexibility &amp; ECU Efficiency</div>
+            <div class="chapter-item__desc">Approved fuel types, automated mixture management, and removed legacy failure points</div>
+          </div>
+        </li>
+        <li class="chapter-item">
+          <div>
+            <div class="chapter-item__time">~11:00</div>
+          </div>
+          <div>
+            <div class="chapter-item__title">Quantitative Performance Gains</div>
+            <div class="chapter-item__desc">−20% take-off distance, +5% cruise speed, weight reduction, and CG implications</div>
+          </div>
+        </li>
+        <li class="chapter-item">
+          <div>
+            <div class="chapter-item__time">~15:00</div>
+          </div>
+          <div>
+            <div class="chapter-item__title">System Redundancy &amp; Kit Components</div>
+            <div class="chapter-item__desc">Dual-channel ECU, Twin-Pack fuel pump, Kanardia Digi-F, and LED cowling</div>
+          </div>
+        </li>
+        <li class="chapter-item">
+          <div>
+            <div class="chapter-item__time">~19:00</div>
+          </div>
+          <div>
+            <div class="chapter-item__title">Professional Justification &amp; Conclusion</div>
+            <div class="chapter-item__desc">EASA certification, TBO reset, global Rotax support, and 40-year asset outlook</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="episode-cta">
+      <div class="episode-cta__text">
+        <strong>Ready to Modernize Your G&nbsp;109B?</strong>
+        Contact Grob Aircraft SE to receive a personalized conversion offer and secure your
+        place in the 2026 delivery schedule.
+      </div>
+      <a href="../index.html#order" class="btn btn--primary">Request a Personalized Offer</a>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <img
+      src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png"
+      alt="Grob Aircraft SE" class="footer__logo"
+    />
+    <div class="footer__legal">
+      &copy; 2026 Grob Aircraft SE. All rights reserved.<br />
+      Prices net, excl. VAT and shipping. Specifications subject to change without notice.
+    </div>
+  </div>
+</footer>
+
+<script>
+  if (new URLSearchParams(window.location.search).get('autoplay') === '1') {
+    var audio = document.getElementById('podcast-audio');
+    if (audio) audio.play().catch(function () {});
+  }
+</script>
+</body>
+</html>

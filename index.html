@@ -530,16 +530,64 @@
     .article-card:hover .article-card__link { color: var(--white); }
 
     /* ═══════════════════════════════
+       FAQ SECTION (light)
+    ═══════════════════════════════ */
+    .faq-list { margin-top: 2.5rem; max-width: 860px; }
+    details.faq-item { border-bottom: 1px solid rgba(0,0,0,0.1); }
+    details.faq-item:first-of-type { border-top: 1px solid rgba(0,0,0,0.1); }
+    summary.faq-item__q {
+      list-style: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+      padding: 1.5rem 0;
+      font-family: var(--font-heading); font-weight: 400;
+      font-size: clamp(0.78rem, 1.8vw, 0.92rem);
+      letter-spacing: 0.04em; text-transform: uppercase;
+      color: #3d3d3d; transition: color 0.2s; user-select: none;
+    }
+    summary.faq-item__q::-webkit-details-marker { display: none; }
+    summary.faq-item__q:hover { color: #141516; }
+    .faq-item__icon {
+      flex-shrink: 0; width: 24px; height: 24px;
+      border: 1.5px solid var(--grob-accent);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-body); font-size: 1.1rem; font-weight: 300;
+      color: var(--grob-accent); transition: transform 0.2s;
+    }
+    details[open] .faq-item__icon { transform: rotate(45deg); }
+    .faq-item__a {
+      padding: 0 0 1.75rem;
+      font-weight: 300; font-size: 1rem; color: #4a4a4a; line-height: 1.75; max-width: 700px;
+    }
+
+    /* ═══════════════════════════════
        SECTION 10 — FINAL CTA
     ═══════════════════════════════ */
     .cta-section { background: var(--grob-bg-mid); border-top: 1px solid var(--grob-border); }
-    .cta-block { max-width: 640px; margin: 0 auto; text-align: center; }
-    .cta-block .eyebrow { justify-content: center; }
-    .cta-block .eyebrow::before { display: none; }
-    .cta-block__heading { font-family: var(--font-heading); font-weight: 400; font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.05; text-transform: uppercase; color: var(--white); margin-bottom: 1.25rem; }
-    .cta-block__body { font-weight: 300; font-size: 0.95rem; line-height: 1.75; color: var(--grob-text-muted); margin-bottom: 2.5rem; }
-    .cta-block__actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
-    .cta-block__note { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grob-text-muted); }
+    .cta-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .cta-intro { }
+    .cta-intro .eyebrow { justify-content: flex-start; }
+    .cta-intro__heading { font-family: var(--font-heading); font-weight: 400; font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.05; text-transform: uppercase; color: var(--white); margin-bottom: 1.25rem; }
+    .cta-intro__body { font-weight: 300; font-size: 0.95rem; line-height: 1.75; color: var(--grob-text-muted); margin-bottom: 2rem; }
+    .cta-contact-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .cta-contact-list li { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grob-text-muted); }
+    .cta-contact-list a { color: var(--grob-accent); }
+    /* Form card */
+    .form-card { background: var(--white); padding: 2.5rem; }
+    .form-card__title { font-family: var(--font-heading); font-weight: 400; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; color: #141516; margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 1px solid #e0ddd8; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .form-full { grid-column: 1 / -1; }
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .field label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: #8a8783; }
+    .field input, .field select, .field textarea { font-family: var(--font-body); font-size: 0.92rem; color: #141516; background: #f5f4f2; border: 1.5px solid #d8d5d0; padding: 0.75rem 1rem; outline: none; width: 100%; border-radius: 0; transition: border-color 0.2s; -webkit-appearance: none; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--grob-accent); background: var(--white); }
+    .field textarea { resize: vertical; min-height: 90px; }
+    .field select { cursor: pointer; }
+    .form-submit { margin-top: 1.75rem; }
+    .form-note { font-size: 0.72rem; font-weight: 300; color: #8a8783; margin-top: 0.75rem; }
+    .form-success { display: none; text-align: center; padding: 3rem 1rem; }
+    .form-success__check { width: 48px; height: 48px; border: 1.5px solid #141516; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; font-size: 1.3rem; }
+    .form-success__title { font-family: var(--font-heading); font-size: 1rem; text-transform: uppercase; color: #141516; margin-bottom: 0.5rem; }
+    .form-success__msg { font-weight: 300; font-size: 0.88rem; color: #606060; line-height: 1.6; }
 
     /* ═══════════════════════════════
        FOOTER
@@ -579,6 +627,8 @@
       .mission-grid { grid-template-columns: 1fr; }
       .device-grid { grid-template-columns: 1fr; }
       .benefit-grid { grid-template-columns: 1fr; }
+      .cta-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .form-grid { grid-template-columns: 1fr; }
 
       .footer__top { grid-template-columns: 1fr; gap: 2rem; }
       .footer__nav { gap: 1.25rem; }
@@ -1195,22 +1245,179 @@
 
 
 <!-- ═══════════════════════════════════════════
+     FAQ
+════════════════════════════════════════════ -->
+<section class="section section--light" id="faq">
+  <div class="container">
+    <p class="eyebrow">FAQ</p>
+    <h2 class="s-heading">Common Questions</h2>
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary class="faq-item__q">
+          What is the Grob G120TP integrated training ecosystem?
+          <span class="faq-item__icon">+</span>
+        </summary>
+        <p class="faq-item__a">
+          The Grob G120TP training ecosystem combines type-specific simulation devices, mission
+          planning tools, instructor briefing systems, and post-mission replay and debriefing
+          capabilities into a single coordinated environment. Each component is designed around
+          the actual aircraft architecture, ensuring direct procedural transfer between
+          simulation and flight operations across every stage of the training program.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">
+          How does type-specific simulation improve training outcomes?
+          <span class="faq-item__icon">+</span>
+        </summary>
+        <p class="faq-item__a">
+          Type-specific simulation replicates the exact cockpit layout, avionics logic,
+          procedures, and system behavior of the G120TP. When training and aircraft environments
+          match closely, procedural habits and cockpit awareness developed in simulation
+          transfer directly to flight operations — improving both efficiency and learning
+          consistency across student cohorts.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">
+          What training stages does the simulation system cover?
+          <span class="faq-item__icon">+</span>
+        </summary>
+        <p class="faq-item__a">
+          The ecosystem supports the full pilot training pipeline: initial cockpit
+          familiarization and systems knowledge, instrument and procedural training,
+          advanced mission rehearsal, and operational scenario practice. Simulation
+          can be introduced from day one of the program, shortening the aircraft training
+          curve without adding flight hours to the syllabus.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">
+          How does mission planning integrate with simulation devices?
+          <span class="faq-item__icon">+</span>
+        </summary>
+        <p class="faq-item__a">
+          Mission planning tools connect directly to simulation devices, allowing instructors
+          to build, brief, and execute training scenarios within the same environment. After
+          each session, post-mission replay and debriefing tools let instructors review
+          student performance against planned objectives, creating a closed feedback loop
+          that accelerates skill development.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">
+          How does Grob Aircraft support implementation?
+          <span class="faq-item__icon">+</span>
+        </summary>
+        <p class="faq-item__a">
+          Grob Aircraft works with training organizations from the initial program assessment
+          through installation, acceptance testing, and instructor qualification. Support
+          includes scenario library development, software updates, and ongoing technical
+          assistance. The aim is to ensure the simulation ecosystem is fully integrated
+          into your training syllabus from the start.
+        </p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
      SECTION 10 — FINAL CTA
 ════════════════════════════════════════════ -->
 <section class="section cta-section" id="contact">
   <div class="container">
-    <div class="cta-block">
-      <p class="eyebrow eyebrow--center">Next Steps</p>
-      <h2 class="cta-block__heading">Evaluate your training architecture</h2>
-      <p class="cta-block__body">
-        Discuss how a type-specific training ecosystem built around the Grob G120TP
-        can support modernization of your pilot training program.
-      </p>
-      <div class="cta-block__actions">
-        <a href="mailto:training@grob-aircraft.com" class="btn btn--primary">Request a Training System Briefing</a>
-        <a href="mailto:training@grob-aircraft.com" class="btn btn--outline">Contact the Training Team</a>
+    <div class="cta-layout">
+
+      <!-- Intro text -->
+      <div class="cta-intro">
+        <p class="eyebrow">Next Steps</p>
+        <h2 class="cta-intro__heading">Evaluate your training architecture</h2>
+        <p class="cta-intro__body">
+          Discuss how a type-specific training ecosystem built around the Grob G120TP
+          can support modernization of your pilot training program. A Grob Aircraft
+          training specialist will be in touch within two business days.
+        </p>
+        <ul class="cta-contact-list">
+          <li>For flight academies, military training organizations and government operators</li>
+          <li>Email: <a href="mailto:training@grob-aircraft.com">training@grob-aircraft.com</a></li>
+        </ul>
       </div>
-      <p class="cta-block__note">For flight academies, military training organizations and government operators.</p>
+
+      <!-- Contact form -->
+      <div>
+        <div class="form-card">
+          <div class="form-card__title">Training System Inquiry</div>
+          <form id="briefing-form" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="f-org">Organization</label>
+                <input type="text" id="f-org" name="organization" placeholder="Flight academy / operator" />
+              </div>
+              <div class="field">
+                <label for="f-role">Your Role</label>
+                <input type="text" id="f-role" name="role" placeholder="Chief instructor / procurement" />
+              </div>
+              <div class="field">
+                <label for="f-fname">First Name</label>
+                <input type="text" id="f-fname" name="first_name" placeholder="First name" />
+              </div>
+              <div class="field">
+                <label for="f-lname">Last Name</label>
+                <input type="text" id="f-lname" name="last_name" placeholder="Last name" />
+              </div>
+              <div class="field">
+                <label for="f-email">Email Address</label>
+                <input type="email" id="f-email" name="email" placeholder="you@organization.com" />
+              </div>
+              <div class="field">
+                <label for="f-phone">Phone Number</label>
+                <input type="tel" id="f-phone" name="phone" placeholder="+1 000 000 0000" />
+              </div>
+              <div class="field">
+                <label for="f-platform">Current Training Aircraft</label>
+                <select id="f-platform" name="platform">
+                  <option value="" disabled selected>Select platform</option>
+                  <option>Grob G120TP</option>
+                  <option>Grob G115</option>
+                  <option>Grob G120A</option>
+                  <option>Other turboprop trainer</option>
+                  <option>Other piston trainer</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-stage">Training Stage</label>
+                <select id="f-stage" name="stage">
+                  <option value="" disabled selected>Select stage</option>
+                  <option>Initial Pilot Training</option>
+                  <option>Advanced / Instrument Training</option>
+                  <option>Operational / Mission Training</option>
+                  <option>Full program evaluation</option>
+                </select>
+              </div>
+              <div class="field form-full">
+                <label for="f-message">Additional Context</label>
+                <textarea id="f-message" name="message" placeholder="Describe your current simulation setup, student throughput, or specific training objectives…"></textarea>
+              </div>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn btn--primary">Submit Request</button>
+              <p class="form-note">A Grob Aircraft SE training specialist will contact you within 2 business days.</p>
+            </div>
+          </form>
+          <div class="form-success" id="form-success">
+            <div class="form-success__check">✓</div>
+            <div class="form-success__title">Request Received</div>
+            <p class="form-success__msg">Thank you. A Grob Aircraft training specialist will be<br />in touch within 2 business days.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1240,6 +1447,19 @@
 
 
 <script>
+  /* ── Form submit ── */
+  (function () {
+    var form    = document.getElementById('briefing-form');
+    var success = document.getElementById('form-success');
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        form.style.display = 'none';
+        success.style.display = 'block';
+      });
+    }
+  }());
+
   /* ── Mobile nav ── */
   (function () {
     var nav    = document.getElementById('nav');

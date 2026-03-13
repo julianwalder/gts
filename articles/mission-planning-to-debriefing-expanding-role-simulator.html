@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>From Mission Planning to Debriefing: Expanding the Role of the Simulator | Grob Aircraft SE</title>
+
+  <style>
+    /* ─── GROB AIRCRAFT SE BRAND FONTS ─── */
+    @font-face {
+      font-family: 'Transducer Extended';
+      src: url('../fonts/Transducer-ExtendedRegular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Suisse Intl';
+      src: url('../fonts/SuisseIntl-Light.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Suisse Intl Mono';
+      src: url('../fonts/SuisseIntlMono-Regular-WebXL.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ─── DESIGN TOKENS ─── */
+    :root {
+      --grob-bg:          #141516;
+      --grob-bg-mid:      #1d2125;
+      --grob-bg-card:     #27292a;
+      --grob-text:        #B4B1AB;
+      --grob-text-light:  #DED6CB;
+      --grob-text-muted:  #8A8783;
+      --grob-accent:      #6e6b66;
+      --grob-accent-dark: #4a4845;
+      --grob-border:      rgba(255,255,255,0.1);
+      --white:            #ffffff;
+      --max-w:            1200px;
+      --font-heading:     'Transducer Extended', system-ui, Arial, sans-serif;
+      --font-body:        'Suisse Intl', system-ui, -apple-system, Arial, sans-serif;
+      --font-mono:        'Suisse Intl Mono', monospace;
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.6;
+      background: var(--grob-bg);
+      color: var(--grob-text);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── NAVIGATION ─── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: var(--grob-bg);
+      border-bottom: 1px solid var(--grob-border);
+      height: 68px;
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .nav__logo { height: 22px; width: auto; }
+    .nav__links {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+    .nav__links a {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+      transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--white); }
+    .nav__cta {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--grob-accent);
+      padding: 0.6rem 1.5rem;
+      transition: background 0.2s;
+    }
+    .nav__cta:hover { background: var(--grob-accent-dark); }
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    .nav__burger-bar {
+      display: block;
+      width: 22px; height: 1.5px;
+      background: var(--white);
+      transition: opacity 0.2s;
+    }
+    .nav__mobile {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0; bottom: 0;
+      background: var(--grob-bg);
+      padding: 2rem;
+      z-index: 199;
+      overflow-y: auto;
+    }
+    .nav--open .nav__mobile { display: block; }
+    .nav__mobile-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .nav__mobile-links a {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+    }
+    .nav__mobile-cta {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--grob-accent);
+      padding: 1rem 1.5rem;
+      display: inline-block;
+    }
+    body.nav-open { overflow: hidden; }
+
+    /* ─── ARTICLE WRAPPER ─── */
+    .article-wrapper {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    /* ─── ARTICLE HERO ─── */
+    .article-hero {
+      padding: 7rem 2rem 4rem;
+      border-bottom: 1px solid var(--grob-border);
+    }
+    .article-hero__inner { max-width: 740px; }
+    .article-hero__back {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .article-hero__back::before { content: '←'; }
+    .article-hero__back:hover { color: var(--white); }
+    .article-hero__tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grob-accent);
+      margin-bottom: 1.25rem;
+    }
+    .article-hero__title {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      line-height: 1.05;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .article-hero__meta {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+    }
+
+    /* ─── ARTICLE BODY ─── */
+    .article-body {
+      padding: 4rem 2rem 6rem;
+      max-width: 740px;
+    }
+
+    .article-section { margin-bottom: 3rem; }
+    .article-section__heading {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--grob-border);
+    }
+    .article-section p {
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--grob-text);
+      margin-bottom: 1rem;
+    }
+    .article-section p:last-child { margin-bottom: 0; }
+
+    /* List */
+    .article-list {
+      list-style: none;
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .article-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--grob-text);
+      line-height: 1.6;
+    }
+    .article-list li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--grob-accent);
+      margin-top: 0.45em;
+    }
+
+    /* Ordered list */
+    .article-steps {
+      list-style: none;
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      counter-reset: steps;
+    }
+    .article-steps li {
+      counter-increment: steps;
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--grob-text);
+      line-height: 1.6;
+    }
+    .article-steps li::before {
+      content: counter(steps);
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--grob-accent);
+      min-width: 1.4rem;
+      padding-top: 0.15em;
+    }
+
+    /* Pull quote */
+    .article-quote {
+      border-left: 3px solid var(--grob-accent);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      background: var(--grob-bg-mid);
+    }
+    .article-quote p {
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--grob-text-light);
+      margin: 0;
+    }
+
+    /* Callout box */
+    .article-callout {
+      background: var(--grob-bg-mid);
+      border: 1px solid var(--grob-border);
+      border-left: 3px solid var(--grob-accent);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+    }
+    .article-callout__label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grob-accent);
+      margin-bottom: 0.6rem;
+    }
+    .article-callout p {
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--grob-text);
+      margin: 0;
+    }
+
+    /* CTA bar */
+    .article-cta {
+      background: var(--grob-bg-mid);
+      border: 1px solid var(--grob-border);
+      border-left: 3px solid var(--grob-accent);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 4rem;
+    }
+    .article-cta__text {
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--grob-text-muted);
+      line-height: 1.6;
+    }
+    .article-cta__text strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .btn {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.9rem 2.25rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .btn--primary { background: var(--grob-accent); color: var(--white); }
+    .btn--primary:hover { background: var(--grob-accent-dark); }
+
+    /* Footer */
+    .footer { background: var(--grob-bg); border-top: 1px solid var(--grob-border); }
+    .footer__top { max-width: var(--max-w); margin: 0 auto; padding: 3rem 2rem; display: grid; grid-template-columns: auto 1fr; gap: 5rem; align-items: start; }
+    .footer__logo { height: 26px; width: auto; }
+    .footer__nav { display: flex; gap: 3rem; flex-wrap: wrap; align-items: center; }
+    .footer__link { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grob-text-muted); transition: color 0.2s; }
+    .footer__link:hover { color: var(--white); }
+    .footer__bottom { border-top: 1px solid var(--grob-border); max-width: var(--max-w); margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer__copy { font-weight: 300; font-size: 0.72rem; color: var(--grob-text-muted); }
+    .footer__legal-text { font-weight: 300; font-size: 0.72rem; color: var(--grob-text-muted); text-align: right; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav__burger { display: flex; }
+      .nav__cta    { display: none; }
+      .article-hero { padding: 4rem 1.5rem 3rem; }
+      .article-body { padding: 3rem 1.5rem 4rem; }
+      .footer__top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer__nav { gap: 1.25rem; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; }
+      .footer__legal-text { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="../index.html">
+      <img src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png" alt="Grob Aircraft SE" class="nav__logo" />
+    </a>
+    <ul class="nav__links">
+      <li><a href="../index.html#ecosystem">Training Ecosystem</a></li>
+      <li><a href="../index.html#devices">Training Devices</a></li>
+      <li><a href="../index.html#mission-env">Mission Environment</a></li>
+      <li><a href="../index.html#articles">Articles</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <a href="../index.html#contact" class="nav__cta">Request Briefing</a>
+    <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile">
+      <span class="nav__burger-bar"></span>
+      <span class="nav__burger-bar"></span>
+      <span class="nav__burger-bar"></span>
+    </button>
+  </div>
+  <div class="nav__mobile" id="nav-mobile" aria-hidden="true">
+    <ul class="nav__mobile-links">
+      <li><a href="../index.html#ecosystem">Training Ecosystem</a></li>
+      <li><a href="../index.html#devices">Training Devices</a></li>
+      <li><a href="../index.html#mission-env">Mission Environment</a></li>
+      <li><a href="../index.html#articles">Articles</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <a href="../index.html#contact" class="nav__mobile-cta">Request a Training System Briefing</a>
+  </div>
+</nav>
+
+
+<div class="article-wrapper">
+
+  <!-- ARTICLE HERO -->
+  <header class="article-hero">
+    <div class="article-hero__inner">
+      <a href="../index.html#articles" class="article-hero__back">Back to Articles</a>
+      <p class="article-hero__tag">Mission Systems</p>
+      <h1 class="article-hero__title">
+        From Mission Planning<br />
+        to Debriefing: Expanding<br />
+        the Role of the Simulator
+      </h1>
+      <div class="article-hero__meta">Grob Aircraft SE &nbsp;·&nbsp; Industry Insight</div>
+    </div>
+  </header>
+
+
+  <!-- ARTICLE BODY -->
+  <main class="article-body">
+
+    <!-- INTRO -->
+    <div class="article-section">
+      <p>
+        Flight simulators have traditionally been used to support procedural training and
+        instrument practice. For many years, the simulator was primarily a device where pilots
+        practiced specific flight tasks before applying those skills in the aircraft.
+      </p>
+      <p>
+        Today, the role of the simulator is expanding. Modern pilot training programs
+        increasingly use simulation as part of a broader training ecosystem that supports the
+        entire mission cycle — from planning and briefing to simulation execution and
+        post-mission analysis.
+      </p>
+      <p>
+        By connecting these elements, training organizations can improve learning outcomes,
+        strengthen operational preparation, and create a more structured training process.
+      </p>
+    </div>
+
+    <!-- 1 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Simulation as Part of the Mission Cycle</h2>
+      <p>
+        In operational aviation environments, a flight rarely begins in the cockpit. Pilots
+        typically prepare for missions through structured planning and briefing processes before
+        the aircraft ever leaves the ground.
+      </p>
+      <p>
+        Modern simulation systems increasingly reflect this reality by integrating the simulator
+        into the complete mission cycle. This cycle often includes:
+      </p>
+      <ol class="article-steps">
+        <li><div>mission planning</div></li>
+        <li><div>pilot briefing</div></li>
+        <li><div>mission execution in simulation</div></li>
+        <li><div>mission replay and analysis</div></li>
+        <li><div>instructor debriefing</div></li>
+      </ol>
+      <div class="article-quote">
+        <p>When these steps are connected, simulation becomes more than a training device.
+        It becomes a platform that supports the entire learning process surrounding a mission.</p>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Mission Planning Before the Simulator</h2>
+      <p>
+        Effective training scenarios begin with well-defined mission objectives. Mission planning
+        tools allow instructors to configure training sessions that replicate operational
+        conditions.
+      </p>
+      <p>These tools can support planning tasks such as:</p>
+      <ul class="article-list">
+        <li><div>defining mission routes</div></li>
+        <li><div>configuring airspace structures</div></li>
+        <li><div>selecting airfields and operational environments</div></li>
+        <li><div>introducing weather conditions</div></li>
+        <li><div>creating training scenarios</div></li>
+      </ul>
+      <p>
+        By defining these parameters before entering the simulator, instructors can create
+        structured training events that align with specific learning objectives.
+      </p>
+      <p>
+        For students, this planning phase also introduces an important element of real-world
+        operations: preparing for the mission before entering the cockpit.
+      </p>
+    </div>
+
+    <!-- 3 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Structured Briefing Before Simulation</h2>
+      <p>
+        Briefing plays a critical role in preparing pilots for both training and operational
+        flights. Before a simulator session begins, instructors can review:
+      </p>
+      <ul class="article-list">
+        <li><div>mission objectives</div></li>
+        <li><div>route structure</div></li>
+        <li><div>airspace constraints</div></li>
+        <li><div>operational procedures</div></li>
+        <li><div>potential challenges within the scenario</div></li>
+      </ul>
+      <p>
+        This process helps pilots understand the context of the mission and prepares them for
+        the decisions they will need to make during the simulation. Briefings also allow
+        instructors to align expectations with training objectives, ensuring that students focus
+        on the most important aspects of the exercise.
+      </p>
+    </div>
+
+    <!-- 4 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Simulation Execution in a Controlled Environment</h2>
+      <p>
+        Once the mission has been planned and briefed, the simulation session allows pilots to
+        execute the scenario in a controlled environment.
+      </p>
+      <p>Within the simulator, students can practice:</p>
+      <ul class="article-list">
+        <li><div>aircraft procedures</div></li>
+        <li><div>navigation tasks</div></li>
+        <li><div>decision-making under operational conditions</div></li>
+        <li><div>coordination between cockpit tasks and mission objectives</div></li>
+      </ul>
+      <p>
+        Because the simulation environment can replicate operational airfields, terrain and
+        airspace structures, training can reflect conditions that pilots may encounter in real
+        missions. This allows instructors to introduce complex scenarios while maintaining a
+        safe and controlled learning environment.
+      </p>
+    </div>
+
+    <!-- 5 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Mission Replay and Performance Analysis</h2>
+      <p>
+        One of the most powerful aspects of modern simulation environments is the ability to
+        capture and replay training sessions.
+      </p>
+      <p>
+        After a simulation exercise, instructors can review the mission with the student using
+        recorded data and visual replay tools. These tools allow the training team to examine:
+      </p>
+      <ul class="article-list">
+        <li><div>flight paths and navigation decisions</div></li>
+        <li><div>system management and cockpit procedures</div></li>
+        <li><div>adherence to mission objectives</div></li>
+        <li><div>responses to unexpected events</div></li>
+      </ul>
+      <p>
+        Replay capabilities provide a detailed view of how the mission unfolded, allowing
+        instructors to highlight both effective decisions and areas that require improvement.
+      </p>
+    </div>
+
+    <!-- 6 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Debriefing as a Learning Tool</h2>
+      <p>
+        The debriefing phase is often where the most valuable learning occurs. During the
+        debrief, instructors and students can review the mission together, discuss decisions
+        made during the simulation, and analyze how different choices might have changed the
+        outcome.
+      </p>
+      <p>A structured debrief typically includes:</p>
+      <ul class="article-list">
+        <li><div>review of mission objectives</div></li>
+        <li><div>analysis of key events during the scenario</div></li>
+        <li><div>discussion of procedural execution</div></li>
+        <li><div>identification of improvement opportunities</div></li>
+      </ul>
+      <div class="article-callout">
+        <div class="article-callout__label">Learning Benefit</div>
+        <p>
+          Because simulation sessions can be replayed and analyzed in detail, debriefing becomes
+          a powerful tool for reinforcing learning and improving performance.
+        </p>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Creating a Continuous Learning Loop</h2>
+      <p>
+        When mission planning, simulation, and debriefing are connected, training programs
+        benefit from a continuous learning loop.
+      </p>
+      <p>Each training event builds on the previous one:</p>
+      <ul class="article-list">
+        <li><div>lessons identified during debriefing inform the next mission plan</div></li>
+        <li><div>new scenarios introduce additional challenges</div></li>
+        <li><div>pilots progressively develop operational competence</div></li>
+      </ul>
+      <p>
+        This structured approach helps training organizations guide students through increasingly
+        complex training events while maintaining clear learning objectives.
+      </p>
+    </div>
+
+    <!-- 8 — CONCLUSION -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Simulation in the Modern Training Ecosystem</h2>
+      <p>
+        As pilot training programs evolve, simulators are no longer viewed as isolated devices.
+        Instead, they are becoming part of integrated systems that support the entire training
+        workflow.
+      </p>
+      <p>
+        By connecting mission planning, simulation execution and performance analysis, modern
+        training ecosystems allow organizations to:
+      </p>
+      <ul class="article-list">
+        <li><div>design more structured training scenarios</div></li>
+        <li><div>reinforce operational decision-making</div></li>
+        <li><div>provide detailed performance feedback</div></li>
+        <li><div>improve overall training effectiveness</div></li>
+      </ul>
+      <p>
+        In this expanded role, simulation becomes a central component of the training
+        environment — supporting not only procedural instruction but also mission preparation
+        and performance development across the entire training pipeline.
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="article-cta">
+      <div class="article-cta__text">
+        <strong>Evaluate Your Training Architecture</strong>
+        Discuss how a type-specific training ecosystem built around the Grob G120TP can support
+        modernization of your pilot training program.
+      </div>
+      <a href="../index.html#contact" class="btn btn--primary">Request a Training System Briefing</a>
+    </div>
+
+  </main>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__top">
+    <img src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png" alt="Grob Aircraft SE" class="footer__logo" />
+    <nav class="footer__nav" aria-label="Footer navigation">
+      <a href="../index.html#ecosystem" class="footer__link">Training Ecosystem</a>
+      <a href="../index.html#devices" class="footer__link">Training Devices</a>
+      <a href="../index.html#mission-env" class="footer__link">Mission Environment</a>
+      <a href="../index.html#articles" class="footer__link">Articles</a>
+      <a href="../index.html#contact" class="footer__link">Contact</a>
+    </nav>
+  </div>
+  <div class="footer__inner">
+    <div class="footer__bottom">
+      <span class="footer__copy">&copy; 2026 Grob Aircraft SE. All rights reserved.</span>
+      <span class="footer__legal-text">Grob Aircraft training systems and aircraft-specific simulation environments.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ── Mobile nav ── */
+  (function () {
+    var nav    = document.getElementById('nav');
+    var burger = document.getElementById('nav-burger');
+    var mobile = document.getElementById('nav-mobile');
+
+    function openMenu() {
+      nav.classList.add('nav--open');
+      burger.setAttribute('aria-expanded', 'true');
+      mobile.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('nav-open');
+    }
+    function closeMenu() {
+      nav.classList.remove('nav--open');
+      burger.setAttribute('aria-expanded', 'false');
+      mobile.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('nav-open');
+    }
+
+    burger.addEventListener('click', function () {
+      nav.classList.contains('nav--open') ? closeMenu() : openMenu();
+    });
+
+    mobile.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+  }());
+</script>
+
+</body>
+</html>

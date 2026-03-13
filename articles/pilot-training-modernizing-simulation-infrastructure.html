@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Pilot Training Programs Are Modernizing Simulation Infrastructure | Grob Aircraft SE</title>
+
+  <style>
+    /* ─── GROB AIRCRAFT SE BRAND FONTS ─── */
+    @font-face {
+      font-family: 'Transducer Extended';
+      src: url('../fonts/Transducer-ExtendedRegular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Suisse Intl';
+      src: url('../fonts/SuisseIntl-Light.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Suisse Intl Mono';
+      src: url('../fonts/SuisseIntlMono-Regular-WebXL.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ─── DESIGN TOKENS ─── */
+    :root {
+      --grob-bg:          #141516;
+      --grob-bg-mid:      #1d2125;
+      --grob-bg-card:     #27292a;
+      --grob-text:        #B4B1AB;
+      --grob-text-light:  #DED6CB;
+      --grob-text-muted:  #8A8783;
+      --grob-accent:      #6e6b66;
+      --grob-accent-dark: #4a4845;
+      --grob-border:      rgba(255,255,255,0.1);
+      --white:            #ffffff;
+      --max-w:            1200px;
+      --font-heading:     'Transducer Extended', system-ui, Arial, sans-serif;
+      --font-body:        'Suisse Intl', system-ui, -apple-system, Arial, sans-serif;
+      --font-mono:        'Suisse Intl Mono', monospace;
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.6;
+      background: var(--grob-bg);
+      color: var(--grob-text);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── NAVIGATION ─── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: var(--grob-bg);
+      border-bottom: 1px solid var(--grob-border);
+      height: 68px;
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .nav__logo { height: 30px; width: auto; }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav__links a {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+      transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--white); }
+    .nav__cta {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.4rem;
+      background: var(--grob-accent);
+      color: var(--white);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-block;
+    }
+    .nav__cta:hover { background: var(--grob-accent-dark); }
+
+    /* ─── ARTICLE LAYOUT ─── */
+    .article-wrapper { padding-top: 68px; }
+
+    .article-hero {
+      background: var(--grob-bg-mid);
+      border-bottom: 1px solid var(--grob-border);
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .article-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, var(--grob-accent) 0%, transparent 60%);
+    }
+    .article-hero__inner {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .article-hero__back {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .article-hero__back::before { content: '←'; }
+    .article-hero__back:hover { color: var(--white); }
+    .article-hero__tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--grob-accent);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .article-hero__tag::before {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--grob-accent);
+      flex-shrink: 0;
+    }
+    .article-hero__title {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      line-height: 1.1;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .article-hero__meta {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+    }
+
+    /* Article body */
+    .article-body {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .article-section { margin-bottom: 3.5rem; }
+    .article-section__heading {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--grob-border);
+    }
+    .article-section p {
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--grob-text);
+      margin-bottom: 1.25rem;
+    }
+    .article-section p:last-child { margin-bottom: 0; }
+
+    /* Pull quote */
+    .article-quote {
+      border-left: 3px solid var(--grob-accent);
+      background: var(--grob-bg-mid);
+      padding: 1.75rem 2rem;
+      margin: 2.5rem 0;
+    }
+    .article-quote p {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--grob-text-light);
+      font-style: italic;
+      margin: 0;
+    }
+
+    /* Lists */
+    .article-list {
+      list-style: none;
+      margin: 1.25rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .article-list li {
+      display: flex;
+      gap: 1rem;
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--grob-text);
+    }
+    .article-list li::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      background: var(--grob-accent);
+      flex-shrink: 0;
+      margin-top: 0.65em;
+    }
+    .article-list strong {
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    /* Numbered list */
+    .article-numlist {
+      list-style: none;
+      margin: 1.25rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      counter-reset: numlist;
+    }
+    .article-numlist li {
+      display: flex;
+      gap: 1.25rem;
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--grob-text);
+      counter-increment: numlist;
+    }
+    .article-numlist li::before {
+      content: counter(numlist, decimal-leading-zero);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--grob-accent);
+      padding-top: 4px;
+      flex-shrink: 0;
+      width: 22px;
+    }
+
+    /* Pipeline diagram */
+    .pipeline {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin: 2rem 0;
+      overflow-x: auto;
+    }
+    .pipeline__step {
+      flex: 1;
+      min-width: 120px;
+      background: var(--grob-bg-mid);
+      border: 1px solid var(--grob-border);
+      padding: 1rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+      text-align: center;
+      position: relative;
+    }
+    .pipeline__step + .pipeline__step {
+      border-left: none;
+    }
+    .pipeline__arrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--grob-accent);
+      padding: 0 0.25rem;
+      flex-shrink: 0;
+    }
+
+    /* Callout box */
+    .article-callout {
+      background: var(--grob-bg-mid);
+      border: 1px solid var(--grob-border);
+      border-left: 3px solid var(--grob-accent);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+    }
+    .article-callout__label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grob-accent);
+      margin-bottom: 0.6rem;
+    }
+    .article-callout p {
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--grob-text);
+      margin: 0;
+    }
+
+    /* CTA bar */
+    .article-cta {
+      background: var(--grob-bg-mid);
+      border: 1px solid var(--grob-border);
+      border-left: 3px solid var(--grob-accent);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 4rem;
+    }
+    .article-cta__text {
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--grob-text-muted);
+      line-height: 1.6;
+    }
+    .article-cta__text strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .btn {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.9rem 2.25rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .btn--primary { background: var(--grob-accent); color: var(--white); }
+    .btn--primary:hover { background: var(--grob-accent-dark); }
+
+    /* Footer */
+    .footer {
+      background: var(--grob-bg);
+      border-top: 1px solid var(--grob-border);
+    }
+    .footer__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .footer__logo { height: 26px; width: auto; }
+    .footer__legal {
+      font-weight: 300;
+      font-size: 0.72rem;
+      color: var(--grob-text-muted);
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+      .article-hero { padding: 4rem 1.5rem 3rem; }
+      .article-body { padding: 3rem 1.5rem 4rem; }
+      .footer__inner { flex-direction: column; }
+      .footer__legal { text-align: left; }
+      .pipeline { flex-direction: column; }
+      .pipeline__arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="../index.html">
+      <img
+        src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png"
+        alt="Grob Aircraft SE"
+        class="nav__logo"
+      />
+    </a>
+    <ul class="nav__links">
+      <li><a href="../index.html#performance">Performance</a></li>
+      <li><a href="../index.html#cockpit">Features</a></li>
+      <li><a href="../index.html#order">Order</a></li>
+      <li><a href="../index.html#faq">FAQ</a></li>
+      <li><a href="../index.html#articles">Articles</a></li>
+    </ul>
+    <a href="../index.html#order" class="nav__cta">Request Offer</a>
+  </div>
+</nav>
+
+
+<div class="article-wrapper">
+
+  <!-- ARTICLE HERO -->
+  <header class="article-hero">
+    <div class="article-hero__inner">
+      <a href="../index.html#articles" class="article-hero__back">Back to Articles</a>
+      <p class="article-hero__tag">Training Modernization</p>
+      <h1 class="article-hero__title">
+        Why Pilot Training Programs<br />
+        Are Modernizing Simulation<br />
+        Infrastructure
+      </h1>
+      <div class="article-hero__meta">Grob Aircraft SE &nbsp;·&nbsp; Industry Insight</div>
+    </div>
+  </header>
+
+
+  <!-- ARTICLE BODY -->
+  <main class="article-body">
+
+    <!-- INTRO -->
+    <div class="article-section">
+      <p>
+        For decades, flight simulators have played an essential role in pilot training. They allowed
+        students to practice procedures, instrument flying, and emergency scenarios without the cost
+        and risk of flying an aircraft. Many training organizations still rely on simulation devices
+        originally introduced when the simulator was primarily viewed as a standalone training tool.
+      </p>
+      <p>
+        However, pilot training programs are evolving. Flight academies, military organizations, and
+        training providers increasingly require simulation environments that support the entire
+        training pipeline, not just individual procedural sessions. As a result, many operators are
+        modernizing their simulation infrastructure and moving toward integrated training ecosystems.
+      </p>
+      <p>
+        This shift is driven by several operational and training factors.
+      </p>
+    </div>
+
+    <!-- 1 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Expanding the Role of Simulation in the Training Pipeline</h2>
+      <p>
+        Traditionally, simulators were introduced after ground school to support specific training
+        tasks such as instrument procedures or emergency drills. The simulator was one step in a
+        sequence that typically looked like this:
+      </p>
+
+      <div class="pipeline">
+        <div class="pipeline__step">Ground Training</div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step">Simulator Session</div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step">Aircraft Flight Training</div>
+      </div>
+
+      <p>
+        While effective for procedural instruction, this model limits how early simulation can
+        contribute to pilot preparation.
+      </p>
+      <p>
+        Modern training programs increasingly introduce simulation earlier in the learning process.
+        Early exposure to the cockpit environment allows students to become familiar with aircraft
+        systems, procedures, and decision-making before they ever enter the aircraft.
+      </p>
+      <p>This earlier introduction helps training organizations:</p>
+      <ul class="article-list">
+        <li><div>reduce training risk during early flight phases</div></li>
+        <li><div>improve student confidence and cockpit familiarity</div></li>
+        <li><div>shorten the learning curve once aircraft training begins</div></li>
+      </ul>
+
+      <div class="article-quote">
+        <p>Simulation therefore becomes part of a continuous training environment, rather than an
+        isolated stage.</p>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Moving from Generic Devices to Aircraft-Specific Environments</h2>
+      <p>
+        Another major shift in simulation infrastructure is the growing emphasis on type-specific
+        training environments.
+      </p>
+      <p>
+        Earlier simulation systems were often designed to represent general aircraft configurations
+        rather than a specific platform. While this approach supported basic procedural training,
+        it did not always replicate the cockpit environment students would encounter in the aircraft.
+      </p>
+      <p>Training programs are now prioritizing simulators that reflect the actual aircraft architecture, including:</p>
+      <ul class="article-list">
+        <li><div>cockpit layout</div></li>
+        <li><div>avionics logic</div></li>
+        <li><div>procedures and checklists</div></li>
+        <li><div>system behavior</div></li>
+      </ul>
+      <p>
+        When simulation devices mirror the aircraft environment more closely, students develop
+        procedural habits and cockpit awareness that transfer directly to flight operations.
+        This improves training consistency and learning efficiency, particularly in structured
+        training programs.
+      </p>
+    </div>
+
+    <!-- 3 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Supporting Mission-Oriented Training</h2>
+      <p>
+        In many training organizations — especially military and government operators — the objective
+        of simulation is no longer limited to teaching procedures. Training increasingly focuses on
+        operational readiness.
+      </p>
+      <p>Modern simulation environments allow instructors to introduce operational context into training sessions, including:</p>
+      <ul class="article-list">
+        <li><div>realistic terrain and airspace</div></li>
+        <li><div>operational airfields</div></li>
+        <li><div>mission routes and navigation tasks</div></li>
+        <li><div>scenario-based training exercises</div></li>
+      </ul>
+      <p>
+        By incorporating operational elements, simulation becomes a tool not only for learning how
+        to operate the aircraft, but also for preparing pilots to operate within their real mission
+        environment. This approach supports a smoother transition from training scenarios to
+        real-world operations.
+      </p>
+    </div>
+
+    <!-- 4 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Integrating Mission Planning and Debriefing</h2>
+      <p>
+        Another important driver of modernization is the growing importance of mission management
+        tools. Training organizations increasingly rely on systems that support the full mission cycle:
+      </p>
+      <ul class="article-list">
+        <li><div>mission planning</div></li>
+        <li><div>instructor briefing</div></li>
+        <li><div>simulation execution</div></li>
+        <li><div>replay and performance analysis</div></li>
+        <li><div>instructor debriefing</div></li>
+      </ul>
+      <p>
+        These capabilities allow instructors and students to review training sessions in detail,
+        identify errors, and reinforce correct decision-making. The result is a continuous feedback
+        loop that improves learning outcomes and training efficiency.
+      </p>
+    </div>
+
+    <!-- 5 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Improving Training Efficiency and Aircraft Utilization</h2>
+      <p>
+        Aircraft flight hours are one of the most expensive elements of pilot training. Simulation
+        infrastructure therefore plays an important role in improving training efficiency.
+      </p>
+      <p>Modern simulation ecosystems allow training organizations to move more training tasks into simulation environments, including:</p>
+      <ul class="article-list">
+        <li><div>cockpit familiarization</div></li>
+        <li><div>procedural training</div></li>
+        <li><div>emergency scenarios</div></li>
+        <li><div>navigation exercises</div></li>
+        <li><div>operational scenario rehearsal</div></li>
+      </ul>
+
+      <div class="article-callout">
+        <div class="article-callout__label">Operational Benefit</div>
+        <p>
+          By shifting these activities into simulation, training programs can reduce reliance on
+          aircraft hours while maintaining or improving training quality. This approach also allows
+          students to practice complex or high-risk scenarios safely on the ground.
+        </p>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Building Scalable Training Architectures</h2>
+      <p>
+        Pilot training programs are rarely static. Training organizations must adapt to changes in:
+      </p>
+      <ul class="article-list">
+        <li><div>aircraft platforms</div></li>
+        <li><div>mission requirements</div></li>
+        <li><div>training standards</div></li>
+        <li><div>student throughput</div></li>
+      </ul>
+      <p>
+        Modern simulation infrastructures are therefore designed as scalable systems rather than
+        single devices. An integrated architecture allows organizations to expand or adjust their
+        training capabilities over time by adding:
+      </p>
+      <ul class="article-list">
+        <li><div>additional training devices</div></li>
+        <li><div>new scenario environments</div></li>
+        <li><div>mission planning tools</div></li>
+        <li><div>updated simulation software</div></li>
+      </ul>
+      <p>
+        This flexibility ensures that the training system can evolve alongside operational and
+        program requirements.
+      </p>
+    </div>
+
+    <!-- 7 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">The Future of Simulation in Pilot Training</h2>
+      <p>
+        Simulation will continue to play a central role in pilot training programs. However, its
+        role is expanding beyond that of a standalone training device.
+      </p>
+      <p>
+        Today's training organizations increasingly view simulation as part of a connected training
+        ecosystem — one that spans the entire learning journey from early cockpit familiarization to
+        operational scenario training and post-mission analysis.
+      </p>
+      <p>
+        By integrating simulation more deeply into the training pipeline, organizations can reduce
+        training risk, improve learning outcomes, and better prepare pilots for real-world
+        operations.
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="article-cta">
+      <div class="article-cta__text">
+        <strong>Evaluate Your Training Architecture</strong>
+        Discuss how a type-specific training ecosystem built around the Grob G120TP can support
+        modernization of your pilot training program.
+      </div>
+      <a href="../index.html#order" class="btn btn--primary">Request a Training System Briefing</a>
+    </div>
+
+  </main>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <img
+      src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png"
+      alt="Grob Aircraft SE"
+      class="footer__logo"
+    />
+    <div class="footer__legal">
+      &copy; 2026 Grob Aircraft SE. All rights reserved.<br />
+      Prices net, excl. VAT and shipping. Specifications subject to change without notice.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

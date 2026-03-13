@@ -466,6 +466,15 @@
     .device-card__list { display: flex; flex-direction: column; gap: 0.35rem; }
     .device-card__list li { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grob-text-muted); display: flex; align-items: center; gap: 0.55rem; }
     .device-card__list li::before { content: ''; display: block; width: 4px; height: 4px; background: var(--grob-accent); flex-shrink: 0; }
+    /* device cards on light background */
+    .section--light .devices-intro { color: #606060; }
+    .section--light .device-grid { background: rgba(0,0,0,0.08); border-color: rgba(0,0,0,0.1); }
+    .section--light .device-card { background: #ffffff; }
+    .section--light .device-card:hover { background: #f7f6f4; }
+    .section--light .device-card__media { background: #e8e6e3; border-bottom-color: rgba(0,0,0,0.08); }
+    .section--light .device-card__title { color: #141516; }
+    .section--light .device-card__desc { color: #606060; }
+    .section--light .device-card__list li { color: #6e6b66; }
 
     /* ═══════════════════════════════
        SECTION 6 — MISSION ENV / BYO

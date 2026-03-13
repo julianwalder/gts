@@ -488,6 +488,147 @@
     .footer__copy { font-weight: 300; font-size: 0.72rem; color: var(--grob-text-muted); }
     .footer__legal-text { font-weight: 300; font-size: 0.72rem; color: var(--grob-text-muted); text-align: right; }
 
+    /* ─── FORM ─── */
+    .form-card {
+      background: var(--white);
+      padding: 2.5rem;
+    }
+    .form-card__title {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #141516;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid #e0ddd8;
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .form-full { grid-column: 1 / -1; }
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .field label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8a8783;
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: #141516;
+      background: #f5f4f2;
+      border: 1.5px solid #d8d5d0;
+      padding: 0.75rem 1rem;
+      outline: none;
+      width: 100%;
+      border-radius: 0;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--grob-accent);
+      background: var(--white);
+    }
+    .field textarea { resize: vertical; min-height: 90px; }
+    .field select { cursor: pointer; }
+    .form-submit { margin-top: 1.75rem; }
+    .form-note {
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: #8a8783;
+      margin-top: 0.75rem;
+    }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    .form-success__check {
+      width: 48px; height: 48px;
+      border: 1.5px solid #141516;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-size: 1.3rem;
+    }
+    .form-success__title {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: #141516;
+      margin-bottom: 0.5rem;
+    }
+    .form-success__msg {
+      font-weight: 300;
+      font-size: 0.88rem;
+      color: #606060;
+      line-height: 1.6;
+    }
+
+    /* ─── FAQ ─── */
+    .faq-section { margin-top: 3.5rem; }
+    .faq-section__heading {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--grob-border);
+    }
+    details.faq-item { border-bottom: 1px solid var(--grob-border); }
+    details.faq-item:first-of-type { border-top: 1px solid var(--grob-border); }
+    summary.faq-item__q {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--grob-text-light);
+      transition: color 0.2s;
+      user-select: none;
+    }
+    summary.faq-item__q::-webkit-details-marker { display: none; }
+    summary.faq-item__q:hover { color: var(--white); }
+    .faq-item__icon {
+      flex-shrink: 0;
+      width: 24px; height: 24px;
+      border: 1.5px solid var(--grob-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--grob-accent);
+      transition: transform 0.2s;
+    }
+    details[open] .faq-item__icon { transform: rotate(45deg); }
+    .faq-item__a {
+      padding: 0 0 1.75rem;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--grob-text);
+      line-height: 1.75;
+      max-width: 680px;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .nav__burger { display: flex; }
@@ -500,6 +641,7 @@
       .footer__legal-text { text-align: left; }
       .pipeline { flex-direction: column; }
       .pipeline__arrow { transform: rotate(90deg); }
+      .form-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -761,6 +903,156 @@
       </p>
     </div>
 
+    <!-- NEXT STEPS -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Next Steps — Request a Briefing</h2>
+      <p>
+        Discuss how a type-specific simulation ecosystem built around the Grob G120TP can support
+        modernization of your pilot training program. Complete the form below and a Grob Aircraft
+        training specialist will be in touch within two business days.
+      </p>
+
+      <div class="form-card" style="margin-top:2rem;">
+        <div class="form-card__title">Training System Inquiry</div>
+        <form id="briefing-form" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="f-org">Organization</label>
+              <input type="text" id="f-org" name="organization" placeholder="Flight academy / operator" />
+            </div>
+            <div class="field">
+              <label for="f-role">Your Role</label>
+              <input type="text" id="f-role" name="role" placeholder="Chief instructor / procurement" />
+            </div>
+            <div class="field">
+              <label for="f-fname">First Name</label>
+              <input type="text" id="f-fname" name="first_name" placeholder="First name" />
+            </div>
+            <div class="field">
+              <label for="f-lname">Last Name</label>
+              <input type="text" id="f-lname" name="last_name" placeholder="Last name" />
+            </div>
+            <div class="field">
+              <label for="f-email">Email Address</label>
+              <input type="email" id="f-email" name="email" placeholder="you@organization.com" />
+            </div>
+            <div class="field">
+              <label for="f-phone">Phone Number</label>
+              <input type="tel" id="f-phone" name="phone" placeholder="+1 000 000 0000" />
+            </div>
+            <div class="field">
+              <label for="f-platform">Current Training Aircraft</label>
+              <select id="f-platform" name="platform">
+                <option value="" disabled selected>Select platform</option>
+                <option>Grob G120TP</option>
+                <option>Grob G115</option>
+                <option>Grob G120A</option>
+                <option>Other turboprop trainer</option>
+                <option>Other piston trainer</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-stage">Training Stage</label>
+              <select id="f-stage" name="stage">
+                <option value="" disabled selected>Select stage</option>
+                <option>Initial Pilot Training</option>
+                <option>Advanced / Instrument Training</option>
+                <option>Operational / Mission Training</option>
+                <option>Full program evaluation</option>
+              </select>
+            </div>
+            <div class="field form-full">
+              <label for="f-message">Additional Context</label>
+              <textarea id="f-message" name="message" placeholder="Describe your current simulation setup, student throughput, or specific training objectives…"></textarea>
+            </div>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn btn--primary">Submit Request</button>
+            <p class="form-note">A Grob Aircraft SE training specialist will contact you within 2 business days.</p>
+          </div>
+        </form>
+        <div class="form-success" id="form-success">
+          <div class="form-success__check">✓</div>
+          <div class="form-success__title">Request Received</div>
+          <p class="form-success__msg">Thank you. A Grob Aircraft training specialist will be<br />in touch within 2 business days.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <h2 class="faq-section__heading">Frequently Asked Questions</h2>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">
+          What does an integrated training ecosystem include?
+          <span class="faq-item__icon">+</span>
+        </summary>
+        <p class="faq-item__a">
+          An integrated training ecosystem combines type-specific simulation devices, mission
+          planning tools, instructor briefing systems, and post-mission replay and debriefing
+          capabilities. Unlike standalone simulators, this architecture connects every phase of
+          the training cycle — from initial cockpit familiarization through operational scenario
+          rehearsal and performance analysis — into a single coordinated environment.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">
+          How does type-specific simulation differ from generic devices?
+          <span class="faq-item__icon">+</span>
+        </summary>
+        <p class="faq-item__a">
+          Type-specific simulation devices replicate the exact cockpit layout, avionics logic,
+          procedures, and system behavior of a particular aircraft. Generic devices approximate
+          a general configuration. When training and aircraft environments match closely,
+          procedural habits and cockpit awareness developed in simulation transfer directly
+          to flight operations, improving both training efficiency and learning consistency.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">
+          At what stage of training should simulation be introduced?
+          <span class="faq-item__icon">+</span>
+        </summary>
+        <p class="faq-item__a">
+          Modern training programs introduce simulation earlier than the traditional model.
+          Rather than waiting until after ground school, simulation can begin from day one
+          of the program. Early exposure to the cockpit environment reduces training risk
+          during initial flight phases, builds student confidence, and shortens the learning
+          curve once aircraft training begins — without adding flight hours to the syllabus.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">
+          How does Grob support the implementation of a new training infrastructure?
+          <span class="faq-item__icon">+</span>
+        </summary>
+        <p class="faq-item__a">
+          Grob Aircraft works with training organizations from the initial program assessment
+          through installation, acceptance testing, and instructor qualification. Support
+          includes scenario library development, software updates, and ongoing technical
+          assistance. The goal is to ensure the simulation ecosystem is fully integrated
+          into your training syllabus from the start.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-item__q">
+          What aircraft platforms does Grob's simulation ecosystem support?
+          <span class="faq-item__icon">+</span>
+        </summary>
+        <p class="faq-item__a">
+          Grob's simulation devices are developed specifically for the G120TP turboprop
+          trainer and related platforms. The ecosystem includes cockpit procedure trainers
+          and mission simulation environments designed around the actual aircraft architecture,
+          ensuring direct procedural transfer between simulation and flight operations.
+        </p>
+      </details>
+    </div>
+
     <!-- CTA -->
     <div class="article-cta">
       <div class="article-cta__text">
@@ -797,6 +1089,19 @@
 </footer>
 
 <script>
+  /* ── Form submit ── */
+  (function () {
+    var form    = document.getElementById('briefing-form');
+    var success = document.getElementById('form-success');
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        form.style.display = 'none';
+        success.style.display = 'block';
+      });
+    }
+  }());
+
   /* ── Mobile nav ── */
   (function () {
     var nav    = document.getElementById('nav');

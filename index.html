@@ -3,42 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Future-Proof Your Grob G 109B – Rotax 912iSc3 Conversion | Grob Aircraft SE</title>
+  <title>Integrated Pilot Training Systems | Grob Aircraft SE</title>
 
   <style>
-    /* ─── GROB AIRCRAFT SE BRAND FONTS ─── */
+    /* ─── FONTS ─── */
     @font-face {
       font-family: 'Transducer Extended';
       src: url('fonts/Transducer-ExtendedRegular.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
+      font-weight: 400; font-style: normal; font-display: swap;
     }
     @font-face {
       font-family: 'Suisse Intl';
       src: url('fonts/SuisseIntl-Light.woff2') format('woff2');
-      font-weight: 300;
-      font-style: normal;
-      font-display: swap;
+      font-weight: 300; font-style: normal; font-display: swap;
     }
     @font-face {
       font-family: 'Suisse Intl Mono';
       src: url('fonts/SuisseIntlMono-Regular-WebXL.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
+      font-weight: 400; font-style: normal; font-display: swap;
     }
 
-    /* ─── DESIGN TOKENS ─── */
+    /* ─── TOKENS ─── */
     :root {
       --grob-bg:          #141516;
       --grob-bg-mid:      #1d2125;
-      --grob-bg-warm:     #42464B;
       --grob-bg-card:     #27292a;
       --grob-text:        #B4B1AB;
       --grob-text-light:  #DED6CB;
       --grob-text-muted:  #8A8783;
-      --grob-text-dim:    #9b9b9b;
       --grob-accent:      #6e6b66;
       --grob-accent-dark: #4a4845;
       --grob-border:      rgba(255,255,255,0.1);
@@ -63,167 +55,12 @@
     }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
 
     /* ─── CONTAINER ─── */
-    .container {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
 
-    /* ─────────────────────────────────────────────
-       NAVIGATION
-    ───────────────────────────────────────────── */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
-      background: var(--grob-bg);
-      border-bottom: 1px solid var(--grob-border);
-      height: 68px;
-    }
-    .nav__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 100%;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-    .nav__logo { height: 30px; width: auto; }
-    .nav__links {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-      list-style: none;
-    }
-    .nav__links a {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--grob-text-muted);
-      transition: color 0.2s;
-    }
-    .nav__links a:hover { color: var(--white); }
-    .nav__cta {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      padding: 0.6rem 1.4rem;
-      background: var(--grob-accent);
-      color: var(--white);
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.2s;
-      display: inline-block;
-    }
-    .nav__cta:hover { background: var(--grob-accent-dark); }
-
-    /* ─── HAMBURGER ─── */
-    .nav__burger {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      width: 40px;
-      height: 40px;
-      background: none;
-      border: 1px solid var(--grob-border);
-      cursor: pointer;
-      padding: 0;
-      flex-shrink: 0;
-    }
-    .nav__burger-bar {
-      display: block;
-      width: 20px;
-      height: 1.5px;
-      background: var(--white);
-      transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
-      transform-origin: center;
-    }
-    .nav--open .nav__burger-bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .nav--open .nav__burger-bar:nth-child(2) { opacity: 0; width: 0; }
-    .nav--open .nav__burger-bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-    /* ─── MOBILE OVERLAY ─── */
-    .nav__mobile {
-      position: fixed;
-      inset: 68px 0 0 0;
-      background: var(--grob-bg);
-      z-index: 199;
-      display: flex;
-      flex-direction: column;
-      padding: 0 2rem 3rem;
-      overflow-y: auto;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-12px);
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-    .nav--open .nav__mobile {
-      opacity: 1;
-      pointer-events: all;
-      transform: translateY(0);
-    }
-    body.nav-open { overflow: hidden; }
-
-    .nav__mobile-links {
-      list-style: none;
-      flex: 1;
-      padding-top: 1rem;
-    }
-    .nav__mobile-links li { border-bottom: 1px solid var(--grob-border); }
-    .nav__mobile-links a {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.35rem 0;
-      font-family: var(--font-heading);
-      font-weight: 400;
-      font-size: clamp(1.1rem, 5vw, 1.4rem);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--white);
-      transition: color 0.2s;
-    }
-    .nav__mobile-links a::after {
-      content: '→';
-      font-family: var(--font-body);
-      font-size: 1rem;
-      color: var(--grob-accent);
-      transition: transform 0.2s;
-    }
-    .nav__mobile-links a:hover { color: var(--grob-text-muted); }
-    .nav__mobile-links a:hover::after { transform: translateX(4px); }
-
-    .nav__mobile-cta {
-      display: block;
-      margin-top: 2.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 1.1rem 2rem;
-      background: var(--grob-accent);
-      color: var(--white);
-      text-align: center;
-      transition: background 0.2s;
-    }
-    .nav__mobile-cta:hover { background: var(--grob-accent-dark); }
-
-    @media (max-width: 768px) {
-      .nav__burger { display: flex; }
-      .nav__cta    { display: none; }
-    }
-
-    /* ─────────────────────────────────────────────
-       BUTTONS
-    ───────────────────────────────────────────── */
+    /* ─── BUTTONS ─── */
     .btn {
       display: inline-block;
       font-family: var(--font-mono);
@@ -237,812 +74,423 @@
       transition: background 0.2s, color 0.2s, border-color 0.2s;
       line-height: 1;
     }
-    .btn--primary {
-      background: var(--grob-accent);
-      color: var(--white);
-    }
+    .btn--primary { background: var(--grob-accent); color: var(--white); }
     .btn--primary:hover { background: var(--grob-accent-dark); }
-    .btn--outline {
-      background: transparent;
-      color: var(--white);
-      border: 1.5px solid rgba(255,255,255,0.3);
-    }
-    .btn--outline:hover {
-      border-color: var(--white);
-      background: rgba(255,255,255,0.06);
-    }
-    .btn--full { width: 100%; text-align: center; }
+    .btn--outline { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.3); }
+    .btn--outline:hover { border-color: var(--white); background: rgba(255,255,255,0.06); }
 
-    /* ─────────────────────────────────────────────
-       SECTIONS
-    ───────────────────────────────────────────── */
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200; background: var(--grob-bg);
+      border-bottom: 1px solid var(--grob-border); height: 68px;
+    }
+    .nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
+    }
+    .nav__logo { height: 28px; width: auto; }
+    .nav__links {
+      display: flex; align-items: center; gap: 2.25rem; list-style: none;
+    }
+    .nav__links a {
+      font-family: var(--font-mono); font-size: 0.63rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--grob-text-muted); transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--white); }
+    .nav__cta {
+      font-family: var(--font-mono); font-size: 0.63rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 0.6rem 1.4rem; background: var(--grob-accent);
+      color: var(--white); border: none; border-radius: 5px;
+      cursor: pointer; transition: background 0.2s; display: inline-block;
+    }
+    .nav__cta:hover { background: var(--grob-accent-dark); }
+    .nav__burger {
+      display: none; flex-direction: column; justify-content: center;
+      align-items: center; gap: 5px; width: 40px; height: 40px;
+      background: none; border: 1px solid var(--grob-border); cursor: pointer; padding: 0; flex-shrink: 0;
+    }
+    .nav__burger-bar {
+      display: block; width: 20px; height: 1.5px; background: var(--white);
+      transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease; transform-origin: center;
+    }
+    .nav--open .nav__burger-bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav--open .nav__burger-bar:nth-child(2) { opacity: 0; width: 0; }
+    .nav--open .nav__burger-bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav__mobile {
+      position: fixed; inset: 68px 0 0 0; background: var(--grob-bg); z-index: 199;
+      display: flex; flex-direction: column; padding: 0 2rem 3rem; overflow-y: auto;
+      opacity: 0; pointer-events: none; transform: translateY(-12px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .nav--open .nav__mobile { opacity: 1; pointer-events: all; transform: translateY(0); }
+    body.nav-open { overflow: hidden; }
+    .nav__mobile-links { list-style: none; flex: 1; padding-top: 1rem; }
+    .nav__mobile-links li { border-bottom: 1px solid var(--grob-border); }
+    .nav__mobile-links a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.35rem 0; font-family: var(--font-heading); font-weight: 400;
+      font-size: clamp(1.1rem, 5vw, 1.4rem); letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--white); transition: color 0.2s;
+    }
+    .nav__mobile-links a::after {
+      content: '→'; font-family: var(--font-body); font-size: 1rem;
+      color: var(--grob-accent); transition: transform 0.2s;
+    }
+    .nav__mobile-links a:hover { color: var(--grob-text-muted); }
+    .nav__mobile-cta {
+      display: block; margin-top: 2.5rem; font-family: var(--font-mono);
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 1.1rem 2rem; background: var(--grob-accent); color: var(--white);
+      text-align: center; transition: background 0.2s;
+    }
+    .nav__mobile-cta:hover { background: var(--grob-accent-dark); }
+
+    /* ─── SECTION BASE ─── */
     .section { padding: var(--space-xl) 0; }
-    .section--alt  { background: var(--grob-bg-mid); }
-    .section--light { background: #f2f1ef; color: #141516; }
-    .section--light .s-heading { color: #141516; }
-    .section--light .s-lead { color: #3d3b38; }
-    .section--light .stat-card { border-right-color: rgba(0,0,0,0.12); }
-    .section--light .stat-card__value { color: #141516; }
-    .section--light .stat-card__label,
-    .section--light .stat-card__detail { color: #6e6b66; }
+    .section--alt { background: var(--grob-bg-mid); }
 
-    /* Eyebrow label */
+    /* ─── EYEBROW ─── */
     .eyebrow {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--grob-accent);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--grob-accent);
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;
     }
     .eyebrow::before {
-      content: '';
-      display: block;
-      width: 28px;
-      height: 1px;
-      background: var(--grob-accent);
-      flex-shrink: 0;
+      content: ''; display: block; width: 28px; height: 1px;
+      background: var(--grob-accent); flex-shrink: 0;
     }
     .eyebrow--center { justify-content: center; }
     .eyebrow--center::before { display: none; }
 
-    /* Section headings */
+    /* ─── HEADINGS + LEADS ─── */
     .s-heading {
-      font-family: var(--font-heading);
-      font-weight: 400;
-      font-size: clamp(1.6rem, 3.2vw, 2.6rem);
-      line-height: 1.05;
-      text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 1.25rem;
+      font-family: var(--font-heading); font-weight: 400;
+      font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.05;
+      text-transform: uppercase; color: var(--white); margin-bottom: 1.25rem;
     }
-    .s-heading--dark { color: #141516; }
-    .s-heading--center { text-align: center; }
-
     .s-lead {
-      font-family: var(--font-body);
-      font-weight: 300;
-      font-size: 1rem;
-      line-height: 1.75;
-      max-width: 540px;
-      color: var(--grob-text-muted);
-      margin-bottom: 3.5rem;
+      font-weight: 300; font-size: 1rem; line-height: 1.75;
+      max-width: 560px; color: var(--grob-text-muted); margin-bottom: 2rem;
     }
-    .s-lead--dark { color: #606060; }
 
-    /* ─────────────────────────────────────────────
+    /* ─── BULLET LIST (shared) ─── */
+    .dot-list { display: flex; flex-direction: column; gap: 0.45rem; }
+    .dot-list li {
+      font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--grob-text-muted);
+      display: flex; align-items: center; gap: 0.65rem;
+    }
+    .dot-list li::before {
+      content: ''; display: block; width: 5px; height: 5px;
+      background: var(--grob-accent); flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════
        HERO
-    ───────────────────────────────────────────── */
+    ═══════════════════════════════ */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding-top: 68px;
-      background: var(--grob-bg);
-      position: relative;
-      overflow: hidden;
+      min-height: 100vh; display: grid; grid-template-rows: 1fr auto;
+      background: var(--grob-bg); position: relative; overflow: hidden;
     }
     .hero::before {
-      content: '';
-      position: absolute;
-      top: 0; right: -10%;
-      width: 55%;
-      height: 100%;
-      background: var(--grob-bg-mid);
-      clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+      content: ''; position: absolute; top: 0; right: -10%; width: 52%; height: 100%;
+      background: var(--grob-bg-mid); clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+      pointer-events: none;
     }
     .hero::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: calc(45% - 2px);
-      width: 2px;
-      height: 100%;
-      background: var(--grob-accent);
+      content: ''; position: absolute; top: 0; right: calc(48% - 1px);
+      width: 1.5px; height: 100%;
+      background: linear-gradient(to bottom, transparent 0%, var(--grob-accent) 12%, var(--grob-accent) 88%, transparent 100%);
+      pointer-events: none;
     }
     .hero__grid {
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background-image:
         linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-      background-size: 80px 80px;
+      background-size: 80px 80px; pointer-events: none;
     }
-    .hero__content {
-      position: relative;
-      z-index: 1;
-      padding: 4rem 2rem 5rem;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      width: 100%;
+    .hero__body {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 55% 45%;
+      align-items: center;
+      max-width: var(--max-w); margin: 0 auto; width: 100%;
+      padding: 7rem 2rem 4rem;
+    }
+    .hero__copy { padding-right: 4rem; }
+    .hero__eyebrow {
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--grob-accent);
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;
+    }
+    .hero__eyebrow::before {
+      content: ''; display: block; width: 28px; height: 1px;
+      background: var(--grob-accent); flex-shrink: 0;
     }
     .hero__title {
-      font-family: var(--font-heading);
-      font-weight: 400;
-      font-size: clamp(2.2rem, 4.8vw, 4.4rem);
-      line-height: 1;
-      text-transform: uppercase;
-      color: var(--white);
-      max-width: 680px;
-      margin-bottom: 1.5rem;
+      font-family: var(--font-heading); font-weight: 400;
+      font-size: clamp(1.9rem, 3.6vw, 3.5rem); line-height: 1.02;
+      text-transform: uppercase; color: var(--white); max-width: 560px; margin-bottom: 1.75rem;
     }
-    .hero__title em {
-      font-style: normal;
-      color: var(--grob-accent);
+    .hero__sub {
+      font-weight: 300; font-size: clamp(0.9rem, 1.05vw, 1rem); line-height: 1.7;
+      color: var(--grob-text-light); max-width: 500px; margin-bottom: 2rem;
+      border-left: 2px solid var(--grob-accent); padding-left: 1.25rem;
     }
-    .hero__subtitle {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--grob-text-muted);
-      margin-bottom: 1.25rem;
+    .hero__desc { font-weight: 300; font-size: 0.9rem; line-height: 1.8; color: var(--grob-text-muted); max-width: 500px; margin-bottom: 1.25rem; }
+    .hero__integrates { font-weight: 300; font-size: 0.85rem; color: var(--grob-text-muted); margin-bottom: 0.65rem; }
+    .hero__desc-list { margin: 0 0 1.25rem; }
+    .hero__desc-list li {
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--grob-text-muted);
+      display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem;
     }
-    .hero__desc {
-      font-weight: 300;
-      font-size: 1rem;
-      line-height: 1.75;
-      color: var(--grob-text-muted);
-      max-width: 520px;
-      margin-bottom: 3rem;
+    .hero__desc-list li::before {
+      content: ''; display: block; width: 4px; height: 4px; background: var(--grob-accent); flex-shrink: 0;
     }
-    .hero__actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
+    .hero__desc-close { font-weight: 300; font-size: 0.9rem; line-height: 1.8; color: var(--grob-text-muted); max-width: 500px; margin-bottom: 2.5rem; }
+    .hero__actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
 
-    /* Cert strip */
-    .cert-strip {
-      position: relative;
-      z-index: 1;
-      background: var(--grob-bg-mid);
-      border-top: 1px solid var(--grob-border);
-      padding: 1.1rem 2rem;
+    /* Pipeline diagram */
+    .hero__diagram { padding-left: 3rem; }
+    .diagram__label {
+      font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--grob-text-muted); margin-bottom: 1.75rem;
     }
-    .cert-strip__inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 3rem;
-      flex-wrap: wrap;
+    .pipeline { display: flex; flex-direction: column; max-width: 320px; }
+    .pipeline__stage { display: flex; align-items: stretch; cursor: default; }
+    .pipeline__track { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 28px; }
+    .pipeline__node {
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 1.5px solid var(--grob-accent); background: var(--grob-bg-mid);
+      flex-shrink: 0; z-index: 1; transition: background 0.2s;
     }
-    .cert-item {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--grob-text-muted);
-    }
-    .cert-item::before {
-      content: '';
-      display: block;
-      width: 5px;
-      height: 5px;
-      background: var(--grob-accent);
-      flex-shrink: 0;
-    }
+    .pipeline__stage:hover .pipeline__node { background: var(--grob-accent); }
+    .pipeline__connector { width: 1px; flex: 1; min-height: 16px; background: var(--grob-border); }
+    .pipeline__stage:last-child .pipeline__connector { display: none; }
+    .pipeline__card { flex: 1; padding: 0 0.75rem 1.1rem; border-left: 1.5px solid transparent; transition: border-color 0.2s; }
+    .pipeline__stage:hover .pipeline__card { border-left-color: var(--grob-accent); }
+    .pipeline__step-id { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grob-accent); margin-bottom: 0.15rem; }
+    .pipeline__step-name { font-family: var(--font-heading); font-weight: 400; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); line-height: 1.2; }
+    .pipeline__step-desc { font-size: 0.72rem; color: var(--grob-text-muted); margin-top: 0.15rem; line-height: 1.4; }
 
-    /* ─────────────────────────────────────────────
-       STAT CARDS
-    ───────────────────────────────────────────── */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border: 1px solid var(--grob-border);
-    }
-    .stat-card {
-      padding: 2.5rem 2rem;
-      border-right: 1px solid var(--grob-border);
-      position: relative;
-    }
-    .stat-card:last-child { border-right: none; }
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 2px; height: 100%;
-      background: transparent;
-      transition: background 0.2s;
-    }
-    .stat-card:hover::before { background: var(--grob-accent); }
-    .stat-card__label {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--grob-text-muted);
-      margin-bottom: 0.75rem;
-    }
-    .stat-card__value {
-      font-family: var(--font-heading);
-      font-size: 3.5rem;
-      line-height: 1;
-      color: var(--white);
-      margin-bottom: 0.25rem;
-    }
-    .stat-card__value span { color: var(--grob-accent); }
-    .stat-card__detail {
-      font-weight: 300;
-      font-size: 0.78rem;
-      color: var(--grob-text-muted);
-      line-height: 1.5;
-      margin-top: 0.5rem;
-    }
+    /* Hero strip */
+    .hero__strip { position: relative; z-index: 1; background: rgba(29,33,37,0.9); border-top: 1px solid var(--grob-border); padding: 1rem 2rem; }
+    .hero__strip-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; }
+    .strip-item { display: flex; align-items: center; gap: 0.55rem; font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grob-text-muted); }
+    .strip-item::before { content: ''; display: block; width: 5px; height: 5px; background: var(--grob-accent); flex-shrink: 0; }
 
-    /* ─────────────────────────────────────────────
-       FEATURES + SPEC PANEL
-    ───────────────────────────────────────────── */
-    .features-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-    .feature-list { display: flex; flex-direction: column; }
-    .feature-item {
-      display: flex;
-      gap: 1.5rem;
-      padding: 2rem 0;
-      border-bottom: 1px solid var(--grob-border);
-    }
-    .feature-item:first-child { border-top: 1px solid var(--grob-border); }
-    .feature-item__num {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      color: var(--grob-accent);
-      padding-top: 4px;
-      flex-shrink: 0;
-      width: 22px;
-    }
-    .feature-item__title {
-      font-family: var(--font-heading);
-      font-weight: 400;
-      font-size: 0.9rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 0.4rem;
-    }
-    .feature-item__desc {
-      font-weight: 300;
-      font-size: 0.875rem;
-      color: var(--grob-text-muted);
-      line-height: 1.65;
-    }
+    /* ═══════════════════════════════
+       SECTION 2 — INTRODUCTION
+    ═══════════════════════════════ */
+    .intro-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .intro-body-text { font-weight: 300; font-size: 0.9rem; line-height: 1.8; color: var(--grob-text-muted); margin-bottom: 1.25rem; }
 
-    .spec-panel {
-      background: var(--grob-bg-mid);
-      padding: 2.5rem;
-      position: sticky;
-      top: 88px;
+    /* Comparison panel */
+    .compare-panel { border: 1px solid var(--grob-border); }
+    .compare-panel__head {
+      background: rgba(0,0,0,0.25); border-bottom: 1px solid var(--grob-border);
+      padding: 0.85rem 1.25rem;
+      font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grob-text-muted);
     }
-    .spec-panel__title {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--grob-text-muted);
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--grob-border);
+    .compare-cols { display: grid; grid-template-columns: 1fr 1fr; }
+    .compare-col { padding: 1.5rem 1.25rem; }
+    .compare-col--integrated { border-left: 1px solid var(--grob-border); }
+    .compare-col__label {
+      font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+      margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--grob-border);
     }
-    .spec-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0.85rem 0;
-      border-bottom: 1px solid var(--grob-border);
-      gap: 1rem;
-    }
-    .spec-row:last-child { border-bottom: none; }
-    .spec-row__key {
-      font-weight: 300;
-      font-size: 0.8rem;
-      color: var(--grob-text-muted);
-      flex-shrink: 0;
-    }
-    .spec-row__val {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      letter-spacing: 0.02em;
-      color: var(--white);
-      text-align: right;
-    }
-    .spec-row__val--accent { color: var(--grob-accent); }
+    .compare-col--legacy .compare-col__label { color: var(--grob-text-muted); }
+    .compare-col--integrated .compare-col__label { color: var(--grob-accent); }
+    .compare-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .compare-list li { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.82rem; font-weight: 300; color: var(--grob-text-muted); line-height: 1.5; }
+    .compare-col--legacy .compare-list li::before { content: '—'; color: rgba(255,255,255,0.2); flex-shrink: 0; font-family: var(--font-mono); font-size: 0.7rem; }
+    .compare-col--integrated .compare-list li::before { content: ''; display: block; width: 5px; height: 5px; background: var(--grob-accent); flex-shrink: 0; margin-top: 0.45rem; }
+    .compare-col--integrated .compare-list li { color: var(--grob-text-light); }
 
-    /* ─────────────────────────────────────────────
-       ORDER / PRICING
-    ───────────────────────────────────────────── */
-    .order-layout {
-      display: grid;
-      grid-template-columns: 5fr 7fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .offer-flag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: rgba(110,107,102,0.1);
-      border-left: 2px solid var(--grob-accent);
-      color: var(--white);
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.65rem 1rem;
-      margin-bottom: 1.5rem;
-    }
-    .pricing-table { margin-top: 2rem; }
-    .pricing-row {
-      display: flex;
-      align-items: stretch;
-      border: 1px solid var(--grob-border);
-      margin-bottom: -1px;
-    }
-    .pricing-row--active {
-      border-color: rgba(110,107,102,0.45);
-      background: rgba(110,107,102,0.04);
-    }
-    .pricing-row__tag {
-      width: 50px;
-      background: rgba(0,0,0,0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--grob-text-muted);
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      border-right: 1px solid var(--grob-border);
-    }
-    .pricing-row--active .pricing-row__tag { color: var(--grob-accent); }
-    .pricing-row__body { flex: 1; padding: 1.25rem 1.5rem; }
-    .pricing-row__name {
-      font-family: var(--font-heading);
-      font-weight: 400;
-      font-size: 0.9rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 0.2rem;
-    }
-    .pricing-row__sub {
-      font-weight: 300;
-      font-size: 0.75rem;
-      color: var(--grob-text-muted);
-    }
-    .pricing-row__price {
-      flex-shrink: 0;
-      padding: 1.25rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: center;
-      border-left: 1px solid var(--grob-border);
-    }
-    .pricing-row__amount {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      color: var(--white);
-    }
-    .pricing-row--active .pricing-row__amount { color: var(--grob-accent); }
-    .pricing-row__net {
-      font-family: var(--font-mono);
-      font-size: 0.58rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--grob-text-muted);
-    }
-
-    /* ─── FORM ─── */
-    .form-card {
-      background: var(--white);
-      padding: 2.5rem;
-    }
-    .form-card__title {
-      font-family: var(--font-heading);
-      font-weight: 400;
-      font-size: 1rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #141516;
-      margin-bottom: 2rem;
-      padding-bottom: 1.25rem;
-      border-bottom: 1px solid #e0ddd8;
-    }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-    .form-full { grid-column: 1 / -1; }
-    .field { display: flex; flex-direction: column; gap: 0.4rem; }
-    .field label {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #8a8783;
-    }
-    .field input,
-    .field select,
-    .field textarea {
-      font-family: var(--font-body);
-      font-size: 0.92rem;
-      color: #141516;
-      background: #f5f4f2;
-      border: 1.5px solid #d8d5d0;
-      padding: 0.75rem 1rem;
-      outline: none;
-      width: 100%;
-      border-radius: 0;
-      transition: border-color 0.2s;
-      -webkit-appearance: none;
-    }
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus {
-      border-color: var(--grob-accent);
-      background: var(--white);
-    }
-    .field textarea { resize: vertical; min-height: 90px; }
-    .field select { cursor: pointer; }
-    .form-submit { margin-top: 1.75rem; }
-    .form-note {
-      font-size: 0.72rem;
-      font-weight: 300;
-      color: #8a8783;
-      margin-top: 0.75rem;
-    }
-    .form-success {
-      display: none;
-      text-align: center;
-      padding: 3rem 1rem;
-    }
-    .form-success__check {
-      width: 48px; height: 48px;
-      border: 1.5px solid #141516;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.25rem;
-      font-size: 1.3rem;
-    }
-    .form-success__title {
-      font-family: var(--font-heading);
-      font-size: 1rem;
-      text-transform: uppercase;
-      color: #141516;
-      margin-bottom: 0.5rem;
-    }
-    .form-success__msg {
-      font-weight: 300;
-      font-size: 0.88rem;
-      color: #606060;
-      line-height: 1.6;
-    }
-
-    /* ─────────────────────────────────────────────
-       FAQ
-    ───────────────────────────────────────────── */
-    .faq-section { max-width: 820px; margin: 0 auto; }
-    details.faq-item { border-bottom: 1px solid rgba(0,0,0,0.1); }
-    details.faq-item:first-child { border-top: 1px solid rgba(0,0,0,0.1); }
-    summary.faq-item__q {
-      list-style: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      padding: 1.5rem 0;
-      font-family: var(--font-heading);
-      font-weight: 400;
-      font-size: 1rem;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      color: #141516;
-      transition: color 0.2s;
-      user-select: none;
-    }
-    summary.faq-item__q:hover { color: var(--grob-accent); }
-    .faq-item__icon {
-      flex-shrink: 0;
-      width: 24px; height: 24px;
-      border: 1.5px solid var(--grob-accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-body);
-      font-size: 1.1rem;
-      font-weight: 300;
-      color: var(--grob-accent);
-      transition: transform 0.2s;
-    }
-    details[open] .faq-item__icon { transform: rotate(45deg); }
-    .faq-item__a {
-      padding: 0 0 1.75rem;
-      font-weight: 300;
-      font-size: 0.93rem;
-      color: #606060;
-      line-height: 1.75;
-      max-width: 680px;
-    }
-
-    /* ─────────────────────────────────────────────
-       FOOTER
-    ───────────────────────────────────────────── */
-    .footer {
-      background: var(--grob-bg);
-      border-top: 1px solid var(--grob-border);
-    }
-    .footer__inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 3rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .footer__logo { height: 26px; width: auto; }
-    .footer__legal {
-      font-weight: 300;
-      font-size: 0.72rem;
-      color: var(--grob-text-muted);
-      text-align: right;
-      line-height: 1.6;
-    }
-
-    /* ─────────────────────────────────────────────
-       ARTICLES
-    ───────────────────────────────────────────── */
-    .articles-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 1.5px;
-      background: var(--grob-border);
-      border: 1px solid var(--grob-border);
-    }
-    .article-card {
-      background: var(--grob-bg);
-      padding: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      transition: background 0.2s;
+    /* ═══════════════════════════════
+       SECTION 3 — ARCHITECTURE
+    ═══════════════════════════════ */
+    .arch-intro { max-width: 600px; font-weight: 300; font-size: 0.95rem; line-height: 1.75; color: var(--grob-text-muted); margin-bottom: 3rem; }
+    .arch-flow { display: flex; align-items: stretch; overflow-x: auto; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; }
+    .arch-stage { flex: 1; min-width: 130px; display: flex; flex-direction: column; }
+    .arch-stage__box {
+      border: 1px solid var(--grob-border); background: var(--grob-bg-card);
+      padding: 1.4rem 1rem; height: 100%;
+      transition: border-color 0.2s, background 0.2s; cursor: default;
       position: relative;
     }
-    .article-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 2px;
-      background: transparent;
-      transition: background 0.2s;
+    .arch-stage__box::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: transparent; transition: background 0.2s;
     }
+    .arch-stage:hover .arch-stage__box { border-color: var(--grob-accent); background: rgba(110,107,102,0.05); }
+    .arch-stage:hover .arch-stage__box::before { background: var(--grob-accent); }
+    .arch-stage__num { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.18em; color: var(--grob-accent); }
+    .arch-stage__name { font-family: var(--font-heading); font-weight: 400; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); margin-top: 0.5rem; line-height: 1.25; }
+    .arch-stage__desc { font-size: 0.72rem; color: var(--grob-text-muted); margin-top: 0.5rem; line-height: 1.5; }
+    .arch-arrow { flex-shrink: 0; width: 20px; display: flex; align-items: center; justify-content: center; color: var(--grob-accent); font-size: 0.7rem; padding-top: 2rem; }
+
+    /* ═══════════════════════════════
+       SECTION 4 — TWIN
+    ═══════════════════════════════ */
+    .twin-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .twin-body { font-weight: 300; font-size: 0.9rem; line-height: 1.8; color: var(--grob-text-muted); margin-bottom: 1.25rem; }
+    .twin-supports { font-weight: 300; font-size: 0.88rem; color: var(--grob-text-muted); margin-bottom: 0.75rem; }
+    .fcard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--grob-border); border: 1px solid var(--grob-border); }
+    .fcard { background: var(--grob-bg); padding: 2rem; position: relative; overflow: hidden; }
+    .fcard::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: transparent; transition: background 0.2s;
+    }
+    .fcard:hover::before { background: var(--grob-accent); }
+    .fcard__title { font-family: var(--font-heading); font-weight: 400; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white); margin-bottom: 0.6rem; }
+    .fcard__text { font-weight: 300; font-size: 0.875rem; color: var(--grob-text-muted); line-height: 1.65; }
+
+    /* ═══════════════════════════════
+       SECTION 5 — DEVICES
+    ═══════════════════════════════ */
+    .devices-intro { max-width: 580px; font-weight: 300; font-size: 0.95rem; line-height: 1.75; color: var(--grob-text-muted); margin-bottom: 3rem; }
+    .device-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--grob-border); border: 1px solid var(--grob-border); }
+    .device-card { background: var(--grob-bg-card); display: flex; flex-direction: column; transition: background 0.2s; }
+    .device-card:hover { background: rgba(39,41,42,0.7); }
+    .device-card__media {
+      height: 160px; background: var(--grob-bg-mid); border-bottom: 1px solid var(--grob-border);
+      display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+    }
+    .device-card__media-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grob-accent); opacity: 0.6; }
+    .device-card__body { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
+    .device-card__title { font-family: var(--font-heading); font-weight: 400; font-size: 0.95rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--white); margin-bottom: 0.35rem; }
+    .device-card__subtitle { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grob-accent); margin-bottom: 1rem; }
+    .device-card__desc { font-weight: 300; font-size: 0.875rem; color: var(--grob-text-muted); line-height: 1.7; margin-bottom: 1.25rem; flex: 1; }
+    .device-card__list { display: flex; flex-direction: column; gap: 0.35rem; }
+    .device-card__list li { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grob-text-muted); display: flex; align-items: center; gap: 0.55rem; }
+    .device-card__list li::before { content: ''; display: block; width: 4px; height: 4px; background: var(--grob-accent); flex-shrink: 0; }
+
+    /* ═══════════════════════════════
+       SECTION 6 — MISSION ENV / BYO
+    ═══════════════════════════════ */
+    .env-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .env-body { font-weight: 300; font-size: 0.9rem; line-height: 1.8; color: var(--grob-text-muted); margin-bottom: 1.25rem; }
+    .highlight-box { border-left: 3px solid var(--grob-accent); background: rgba(110,107,102,0.07); padding: 1.5rem 2rem; margin-top: 2rem; }
+    .highlight-box__title { font-family: var(--font-heading); font-weight: 400; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white); margin-bottom: 0.5rem; }
+    .highlight-box__text { font-weight: 300; font-size: 0.875rem; color: var(--grob-text-muted); line-height: 1.65; }
+    .terrain-display { border: 1px solid var(--grob-border); width: 100%; overflow: hidden; }
+    .terrain-display svg { display: block; width: 100%; height: auto; }
+
+    /* ═══════════════════════════════
+       SECTION 7 — MISSION CYCLE
+    ═══════════════════════════════ */
+    .mission-intro { max-width: 580px; font-weight: 300; font-size: 0.95rem; line-height: 1.75; color: var(--grob-text-muted); margin-bottom: 3rem; }
+    .mission-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; background: var(--grob-border); border: 1px solid var(--grob-border); margin-bottom: 2.5rem; }
+    .mission-col { background: var(--grob-bg-card); padding: 2.5rem; position: relative; }
+    .mission-col::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.2s; }
+    .mission-col:hover::before { background: var(--grob-accent); }
+    .mission-col__phase { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grob-accent); margin-bottom: 0.65rem; }
+    .mission-col__title { font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white); margin-bottom: 1.25rem; border-bottom: 1px solid var(--grob-border); padding-bottom: 1.25rem; }
+    .mission-list { display: flex; flex-direction: column; gap: 0.55rem; }
+    .mission-list li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; font-weight: 300; color: var(--grob-text-muted); }
+    .mission-list li::before { content: ''; display: block; width: 4px; height: 4px; background: var(--grob-accent); flex-shrink: 0; }
+    .mission-close { max-width: 560px; font-weight: 300; font-size: 0.95rem; line-height: 1.75; color: var(--grob-text-muted); }
+
+    /* ═══════════════════════════════
+       SECTION 8 — BENEFITS
+    ═══════════════════════════════ */
+    .benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--grob-border); border: 1px solid var(--grob-border); margin-top: 3rem; }
+    .benefit-card { background: var(--grob-bg-mid); padding: 2.5rem; position: relative; }
+    .benefit-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.2s; }
+    .benefit-card:hover::before { background: var(--grob-accent); }
+    .benefit-card__title { font-family: var(--font-heading); font-weight: 400; font-size: 0.95rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--white); margin-bottom: 0.75rem; }
+    .benefit-card__text { font-weight: 300; font-size: 0.9rem; color: var(--grob-text-muted); line-height: 1.7; }
+    .benefit-close { text-align: center; margin-top: 2.5rem; font-weight: 300; font-size: 0.92rem; color: var(--grob-text-muted); font-style: normal; }
+
+    /* ═══════════════════════════════
+       SECTION 9 — ARTICLES
+    ═══════════════════════════════ */
+    .articles-intro { max-width: 540px; font-weight: 300; font-size: 0.95rem; line-height: 1.75; color: var(--grob-text-muted); margin-bottom: 3rem; }
+    .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1px; background: var(--grob-border); border: 1px solid var(--grob-border); }
+    .article-card { background: var(--grob-bg); padding: 2.5rem; display: flex; flex-direction: column; gap: 1rem; position: relative; transition: background 0.2s; }
+    .article-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.2s; }
     .article-card:hover { background: var(--grob-bg-mid); }
     .article-card:hover::before { background: var(--grob-accent); }
-    .article-card__tag {
-      font-family: var(--font-mono);
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--grob-accent);
-    }
-    .article-card__title {
-      font-family: var(--font-heading);
-      font-weight: 400;
-      font-size: 1rem;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      color: var(--white);
-      line-height: 1.25;
-    }
-    .article-card__excerpt {
-      font-weight: 300;
-      font-size: 0.875rem;
-      color: var(--grob-text-muted);
-      line-height: 1.7;
-      flex: 1;
-    }
-    .article-card__link {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--grob-text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: color 0.2s;
-    }
+    .article-card__tag { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grob-accent); }
+    .article-card__title { font-family: var(--font-heading); font-weight: 400; font-size: 1rem; letter-spacing: 0.03em; text-transform: uppercase; color: var(--white); line-height: 1.25; }
+    .article-card__excerpt { font-weight: 300; font-size: 0.875rem; color: var(--grob-text-muted); line-height: 1.7; flex: 1; }
+    .article-card__link { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grob-text-muted); display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
     .article-card__link::after { content: '→'; }
     .article-card:hover .article-card__link { color: var(--white); }
 
-    /* ─────────────────────────────────────────────
-       AUDIO / PODCAST
-    ───────────────────────────────────────────── */
-    .section--audio { background: var(--grob-bg-mid); }
+    /* ═══════════════════════════════
+       SECTION 10 — FINAL CTA
+    ═══════════════════════════════ */
+    .cta-section { background: var(--grob-bg-mid); border-top: 1px solid var(--grob-border); }
+    .cta-block { max-width: 640px; margin: 0 auto; text-align: center; }
+    .cta-block .eyebrow { justify-content: center; }
+    .cta-block .eyebrow::before { display: none; }
+    .cta-block__heading { font-family: var(--font-heading); font-weight: 400; font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.05; text-transform: uppercase; color: var(--white); margin-bottom: 1.25rem; }
+    .cta-block__body { font-weight: 300; font-size: 0.95rem; line-height: 1.75; color: var(--grob-text-muted); margin-bottom: 2.5rem; }
+    .cta-block__actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .cta-block__note { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grob-text-muted); }
 
-    .podcast-card {
-      display: flex;
-      align-items: stretch;
-      gap: 0;
-      border: 1px solid var(--grob-border);
-      background: var(--grob-bg);
-      position: relative;
-      overflow: hidden;
-      transition: background 0.2s;
-      text-decoration: none;
-      color: inherit;
-    }
-    .podcast-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 3px;
-      background: var(--grob-accent);
-    }
-    .podcast-card:hover { background: var(--grob-bg-card); }
+    /* ═══════════════════════════════
+       FOOTER
+    ═══════════════════════════════ */
+    .footer { background: var(--grob-bg); border-top: 1px solid var(--grob-border); }
+    .footer__top { max-width: var(--max-w); margin: 0 auto; padding: 3rem 2rem; display: grid; grid-template-columns: auto 1fr; gap: 5rem; align-items: start; }
+    .footer__logo { height: 26px; width: auto; }
+    .footer__nav { display: flex; gap: 3rem; flex-wrap: wrap; align-items: center; }
+    .footer__link { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grob-text-muted); transition: color 0.2s; }
+    .footer__link:hover { color: var(--white); }
+    .footer__bottom { border-top: 1px solid var(--grob-border); max-width: var(--max-w); margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer__copy { font-weight: 300; font-size: 0.72rem; color: var(--grob-text-muted); }
+    .footer__legal { font-weight: 300; font-size: 0.72rem; color: var(--grob-text-muted); text-align: right; }
 
-    /* Left: play button column */
-    .podcast-card__play {
-      flex-shrink: 0;
-      width: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--grob-bg-mid);
-      border-right: 1px solid var(--grob-border);
-      color: var(--grob-accent);
-      font-size: 1.5rem;
-      transition: background 0.2s, color 0.2s;
-    }
-    .podcast-card:hover .podcast-card__play {
-      background: var(--grob-accent);
-      color: var(--white);
-    }
-
-    /* Center: body */
-    .podcast-card__body {
-      flex: 1;
-      padding: 2rem 2.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
-    .podcast-card__tag {
-      font-family: var(--font-mono);
-      font-size: 0.58rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--grob-accent);
-    }
-    .podcast-card__title {
-      font-family: var(--font-heading);
-      font-weight: 400;
-      font-size: clamp(0.95rem, 2vw, 1.2rem);
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      color: var(--white);
-      line-height: 1.2;
-    }
-    .podcast-card__excerpt {
-      font-weight: 300;
-      font-size: 0.875rem;
-      color: var(--grob-text-muted);
-      line-height: 1.75;
-      max-width: 680px;
-    }
-    .podcast-card__topics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.25rem;
-    }
-    .podcast-card__topics span {
-      font-family: var(--font-mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--grob-text-muted);
-      border: 1px solid var(--grob-border);
-      padding: 0.25rem 0.65rem;
-    }
-
-    /* Right: CTA column */
-    .podcast-card__cta {
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 2rem 2.5rem;
-      border-left: 1px solid var(--grob-border);
-      min-width: 130px;
-    }
-    .podcast-card__cta-label {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--grob-text-muted);
-      transition: color 0.2s;
-      white-space: nowrap;
-    }
-    .podcast-card__cta-arrow {
-      font-size: 1.25rem;
-      color: var(--grob-accent);
-      line-height: 1;
-    }
-    .podcast-card:hover .podcast-card__cta-label { color: var(--white); }
-
-    @media (max-width: 640px) {
-      .podcast-card { flex-direction: column; }
-      .podcast-card__play {
-        width: 100%; height: 56px;
-        border-right: none; border-bottom: 1px solid var(--grob-border);
-      }
-      .podcast-card__body { padding: 1.5rem; }
-      .podcast-card__cta { display: none; }
-    }
-
-    /* ─── DIVIDER ─── */
-    hr.divider {
-      border: none;
-      border-top: 1px solid var(--grob-border);
-    }
-    hr.divider--light { border-color: rgba(0,0,0,0.1); }
-
-    /* ─────────────────────────────────────────────
+    /* ═══════════════════════════════
        RESPONSIVE
-    ───────────────────────────────────────────── */
+    ═══════════════════════════════ */
     @media (max-width: 1024px) {
-      .stats-grid { grid-template-columns: 1fr 1fr; }
-      .stat-card { border-right: none; border-bottom: 1px solid var(--grob-border); }
-      .stat-card:nth-child(odd) { border-right: 1px solid var(--grob-border); }
-      .stat-card:nth-child(3), .stat-card:nth-child(4) { border-bottom: none; }
-      .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-      .spec-panel { position: static; }
-      .order-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .arch-flow { gap: 0; }
+      .arch-stage { min-width: 110px; }
     }
     @media (max-width: 768px) {
       :root { --space-xl: 4rem; }
       .nav__links { display: none; }
-      .hero::before, .hero::after { display: none; }
+      .nav__cta { display: none; }
+      .nav__burger { display: flex; }
 
-      .stats-grid { grid-template-columns: 1fr; }
-      .stat-card { border-right: none !important; }
-      .stat-card:last-child { border-bottom: none; }
-      .form-grid { grid-template-columns: 1fr; }
-      .footer__inner { flex-direction: column; }
+      .hero { grid-template-rows: auto auto; }
+      .hero::before, .hero::after { display: none; }
+      .hero__body { grid-template-columns: 1fr; padding: 5rem 2rem 3rem; }
+      .hero__copy { padding-right: 0; }
+      .hero__diagram { padding-left: 0; margin-top: 3rem; }
+      .pipeline { max-width: 100%; }
+
+      .intro-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .twin-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .env-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .fcard-grid { grid-template-columns: 1fr; }
+
+      .arch-flow { flex-direction: column; overflow-x: visible; }
+      .arch-arrow { transform: rotate(90deg); width: 100%; height: 20px; padding-top: 0; }
+      .arch-stage { min-width: 0; }
+
+      .mission-grid { grid-template-columns: 1fr; }
+      .device-grid { grid-template-columns: 1fr; }
+      .benefit-grid { grid-template-columns: 1fr; }
+
+      .footer__top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer__nav { gap: 1.25rem; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; }
       .footer__legal { text-align: left; }
     }
     @media (max-width: 480px) {
       .hero__actions { flex-direction: column; align-items: stretch; }
       .hero__actions .btn { text-align: center; }
-      .pricing-row { flex-wrap: wrap; }
-      .pricing-row__price {
-        border-left: none;
-        border-top: 1px solid var(--grob-border);
-        width: 100%;
-        align-items: flex-start;
-      }
+      .cta-block__actions { flex-direction: column; align-items: center; }
+      .cta-block__actions .btn { width: 100%; text-align: center; }
     }
   </style>
 </head>
@@ -1054,236 +502,578 @@
 <nav class="nav" id="nav">
   <div class="nav__inner">
     <a href="#top">
-      <img
-        src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png"
-        alt="Grob Aircraft SE"
-        class="nav__logo"
-      />
+      <img src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png" alt="Grob Aircraft SE" class="nav__logo" />
     </a>
     <ul class="nav__links">
-      <li><a href="#performance">Performance</a></li>
-      <li><a href="#cockpit">Features</a></li>
-      <li><a href="#order">Order</a></li>
-      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#ecosystem">Training Ecosystem</a></li>
+      <li><a href="#devices">Training Devices</a></li>
+      <li><a href="#mission-env">Mission Environment</a></li>
       <li><a href="#articles">Articles</a></li>
-      <li><a href="#audio">Audio</a></li>
-      <li><a href="partners.html">For Shops</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="#order" class="nav__cta">Request Offer</a>
+    <a href="#contact" class="nav__cta">Request Briefing</a>
     <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile">
       <span class="nav__burger-bar"></span>
       <span class="nav__burger-bar"></span>
       <span class="nav__burger-bar"></span>
     </button>
   </div>
-
-  <!-- Mobile overlay -->
   <div class="nav__mobile" id="nav-mobile" aria-hidden="true">
     <ul class="nav__mobile-links">
-      <li><a href="#performance">Performance</a></li>
-      <li><a href="#cockpit">Features</a></li>
-      <li><a href="#order">Order</a></li>
-      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#ecosystem">Training Ecosystem</a></li>
+      <li><a href="#devices">Training Devices</a></li>
+      <li><a href="#mission-env">Mission Environment</a></li>
       <li><a href="#articles">Articles</a></li>
-      <li><a href="#audio">Audio</a></li>
-      <li><a href="partners.html">For Shops</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="#order" class="nav__mobile-cta">Request a Personalized Offer</a>
+    <a href="#contact" class="nav__mobile-cta">Request a Training System Briefing</a>
   </div>
 </nav>
 
 
 <!-- ═══════════════════════════════════════════
-     HERO
+     SECTION 1 — HERO
 ════════════════════════════════════════════ -->
-<section class="hero" id="top">
-  <div class="hero__grid"></div>
+<section class="hero" id="top" aria-label="Grob Integrated Pilot Training Systems">
+  <div class="hero__grid" aria-hidden="true"></div>
 
-  <div class="hero__content">
-    <p class="eyebrow">OEM Factory-Certified · G 109B Modernization</p>
+  <div class="hero__body">
 
-    <h1 class="hero__title">
-      Future-Proof<br />
-      Your Grob<br />
-      <em>G&nbsp;109B</em>
-    </h1>
+    <!-- Left: copy -->
+    <div class="hero__copy">
+      <p class="hero__eyebrow">Integrated Pilot Training Systems</p>
 
-    <p class="hero__subtitle">The Certified Rotax 912iSc3 Conversion</p>
+      <h1 class="hero__title">
+        De-risk pilot training from pre-selection to mission debriefing
+      </h1>
 
-    <p class="hero__desc">
-      As parts for the original G&nbsp;2500 engine become obsolete, your G&nbsp;109B deserves
-      a modernization that ensures its airworthiness and maintains its resale value for decades
-      to come. As the original manufacturer, Grob Aircraft SE provides the only
-      factory-certified conversion to the state-of-the-art Rotax&nbsp;912iSc3&nbsp;Sport engine.
+      <p class="hero__sub">
+        Train pilots using a high-fidelity twin of the Grob G120TP across the entire
+        training pipeline — from pilot screening and cockpit familiarization to
+        advanced simulation and mission analysis.
+      </p>
+
+      <p class="hero__desc">
+        The Grob training ecosystem replicates the cockpit architecture and procedures of the
+        Grob G120TP across multiple training devices. From mixed-reality cockpit trainers to
+        advanced dome simulators, the system supports pilot training from candidate pre-selection
+        through mission planning, simulation and post-mission debriefing.
+      </p>
+
+      <p class="hero__integrates">The ecosystem integrates:</p>
+      <ul class="hero__desc-list">
+        <li>type-specific simulators</li>
+        <li>mission planning tools</li>
+        <li>operational training environments</li>
+        <li>briefing and debriefing systems</li>
+      </ul>
+
+      <p class="hero__desc-close">
+        This creates a continuous aircraft-specific training environment connecting
+        simulation and aircraft operations.
+      </p>
+
+      <div class="hero__actions">
+        <a href="#ecosystem" class="btn btn--primary">Explore the Training Ecosystem</a>
+        <a href="#devices" class="btn btn--outline">View Training Devices</a>
+      </div>
+    </div>
+
+    <!-- Right: training pipeline diagram -->
+    <aside class="hero__diagram" aria-label="G120TP training pipeline">
+      <p class="diagram__label">G120TP Training Pipeline</p>
+      <ol class="pipeline">
+        <li class="pipeline__stage">
+          <div class="pipeline__track" aria-hidden="true">
+            <div class="pipeline__node"></div>
+            <div class="pipeline__connector"></div>
+          </div>
+          <div class="pipeline__card">
+            <div class="pipeline__step-id">Stage 01</div>
+            <div class="pipeline__step-name">Pilot Pre-Selection</div>
+            <div class="pipeline__step-desc">Aptitude screening &amp; candidate assessment</div>
+          </div>
+        </li>
+        <li class="pipeline__stage">
+          <div class="pipeline__track" aria-hidden="true">
+            <div class="pipeline__node"></div>
+            <div class="pipeline__connector"></div>
+          </div>
+          <div class="pipeline__card">
+            <div class="pipeline__step-id">Stage 02</div>
+            <div class="pipeline__step-name">Ground / Digital Training</div>
+            <div class="pipeline__step-desc">Aircraft systems, procedures and learning content</div>
+          </div>
+        </li>
+        <li class="pipeline__stage">
+          <div class="pipeline__track" aria-hidden="true">
+            <div class="pipeline__node"></div>
+            <div class="pipeline__connector"></div>
+          </div>
+          <div class="pipeline__card">
+            <div class="pipeline__step-id">Stage 03</div>
+            <div class="pipeline__step-name">Mixed Reality Cockpit Trainer</div>
+            <div class="pipeline__step-desc">Early cockpit familiarization in an immersive environment</div>
+          </div>
+        </li>
+        <li class="pipeline__stage">
+          <div class="pipeline__track" aria-hidden="true">
+            <div class="pipeline__node"></div>
+            <div class="pipeline__connector"></div>
+          </div>
+          <div class="pipeline__card">
+            <div class="pipeline__step-id">Stage 04</div>
+            <div class="pipeline__step-name">Instrument &amp; Procedures Trainer</div>
+            <div class="pipeline__step-desc">Instrument procedures and navigation training</div>
+          </div>
+        </li>
+        <li class="pipeline__stage">
+          <div class="pipeline__track" aria-hidden="true">
+            <div class="pipeline__node"></div>
+            <div class="pipeline__connector"></div>
+          </div>
+          <div class="pipeline__card">
+            <div class="pipeline__step-id">Stage 05</div>
+            <div class="pipeline__step-name">Advanced Dome Simulator</div>
+            <div class="pipeline__step-desc">High-immersion operational and mission-oriented training</div>
+          </div>
+        </li>
+        <li class="pipeline__stage">
+          <div class="pipeline__track" aria-hidden="true">
+            <div class="pipeline__node"></div>
+            <div class="pipeline__connector"></div>
+          </div>
+          <div class="pipeline__card">
+            <div class="pipeline__step-id">Stage 06</div>
+            <div class="pipeline__step-name">Aircraft Training</div>
+            <div class="pipeline__step-desc">Transfer to live aircraft operations on the Grob G120TP</div>
+          </div>
+        </li>
+        <li class="pipeline__stage">
+          <div class="pipeline__track" aria-hidden="true">
+            <div class="pipeline__node"></div>
+            <div class="pipeline__connector"></div>
+          </div>
+          <div class="pipeline__card">
+            <div class="pipeline__step-id">Stage 07</div>
+            <div class="pipeline__step-name">Mission Debriefing</div>
+            <div class="pipeline__step-desc">Replay, evaluation and performance improvement</div>
+          </div>
+        </li>
+      </ol>
+    </aside>
+
+  </div><!-- /.hero__body -->
+
+  <footer class="hero__strip" aria-label="Designed for">
+    <div class="hero__strip-inner">
+      <span class="strip-item">G120TP Type-Specific Devices</span>
+      <span class="strip-item">Modular System Architecture</span>
+      <span class="strip-item">Scalable for Academy &amp; Air Force Fleets</span>
+      <span class="strip-item">Designed for Flight Academies and Military Organizations</span>
+    </div>
+  </footer>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 2 — INTRODUCTION / PROBLEM CONTEXT
+════════════════════════════════════════════ -->
+<section class="section section--alt" id="ecosystem">
+  <div class="container">
+    <div class="intro-layout">
+
+      <div class="intro-left">
+        <p class="eyebrow">Training Architecture</p>
+        <h2 class="s-heading">Modern pilot training requires more than a standalone simulator</h2>
+
+        <p class="intro-body-text">
+          Many training organizations continue to rely on simulation infrastructures
+          originally designed to support procedural training as separate devices.
+          Today, training requirements increasingly include:
+        </p>
+
+        <ul class="dot-list" style="margin-bottom: 1.5rem;">
+          <li>aircraft-specific cockpit familiarization</li>
+          <li>earlier reduction of training risk</li>
+          <li>mission planning and debriefing</li>
+          <li>realistic operational environments</li>
+          <li>continuity between simulation and aircraft operations</li>
+        </ul>
+
+        <p class="intro-body-text">
+          The Grob training ecosystem addresses these requirements with a type-specific
+          architecture built around the Grob G120TP.
+        </p>
+      </div>
+
+      <div class="intro-right">
+        <div class="compare-panel">
+          <div class="compare-panel__head">Legacy Simulation vs. Integrated Training Ecosystem</div>
+          <div class="compare-cols">
+            <div class="compare-col compare-col--legacy">
+              <div class="compare-col__label">Legacy Simulation</div>
+              <ul class="compare-list">
+                <li>isolated training device</li>
+                <li>procedural focus only</li>
+                <li>limited mission context</li>
+                <li>weak connection to aircraft operations</li>
+              </ul>
+            </div>
+            <div class="compare-col compare-col--integrated">
+              <div class="compare-col__label">Integrated Training Ecosystem</div>
+              <ul class="compare-list">
+                <li>type-specific aircraft twin</li>
+                <li>continuous training pipeline</li>
+                <li>mission planning and debriefing</li>
+                <li>operational training environment</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 3 — TRAINING PIPELINE / ARCHITECTURE
+════════════════════════════════════════════ -->
+<section class="section" id="architecture">
+  <div class="container">
+    <p class="eyebrow">System Architecture</p>
+    <h2 class="s-heading">A continuous training architecture built around the Grob G120TP</h2>
+    <p class="arch-intro">
+      The Grob ecosystem connects multiple training stages within one aircraft-specific environment.
+      Each stage builds familiarity, procedural confidence and operational readiness
+      before and after flight.
     </p>
 
-    <div class="hero__actions">
-      <a href="#order" class="btn btn--primary">Request a Personalized Offer</a>
-      <a href="#performance" class="btn btn--outline">View Performance Data</a>
-    </div>
-  </div>
+    <div class="arch-flow" role="list" aria-label="Training stages">
 
-  <div class="cert-strip">
-    <div class="cert-strip__inner">
-      <span class="cert-item">EASA-Recognized Conversion</span>
-      <span class="cert-item">Grob OEM Certified</span>
-      <span class="cert-item">Now Accepting 2026 Orders</span>
-      <span class="cert-item">10-Month Lead Time</span>
+      <div class="arch-stage" role="listitem">
+        <div class="arch-stage__box">
+          <div class="arch-stage__num">01</div>
+          <div class="arch-stage__name">Pilot Pre-Selection</div>
+          <div class="arch-stage__desc">Assessment and selection support for candidate screening</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow" aria-hidden="true">→</div>
+
+      <div class="arch-stage" role="listitem">
+        <div class="arch-stage__box">
+          <div class="arch-stage__num">02</div>
+          <div class="arch-stage__name">Ground / Digital Training</div>
+          <div class="arch-stage__desc">Aircraft systems, procedures and learning content</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow" aria-hidden="true">→</div>
+
+      <div class="arch-stage" role="listitem">
+        <div class="arch-stage__box">
+          <div class="arch-stage__num">03</div>
+          <div class="arch-stage__name">Mixed Reality Cockpit Trainer</div>
+          <div class="arch-stage__desc">Early cockpit familiarization in an immersive environment</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow" aria-hidden="true">→</div>
+
+      <div class="arch-stage" role="listitem">
+        <div class="arch-stage__box">
+          <div class="arch-stage__num">04</div>
+          <div class="arch-stage__name">Basic Instrument &amp; Procedures</div>
+          <div class="arch-stage__desc">Instrument procedures and navigation training</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow" aria-hidden="true">→</div>
+
+      <div class="arch-stage" role="listitem">
+        <div class="arch-stage__box">
+          <div class="arch-stage__num">05</div>
+          <div class="arch-stage__name">Advanced Dome Simulation</div>
+          <div class="arch-stage__desc">High-immersion operational and mission-oriented training</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow" aria-hidden="true">→</div>
+
+      <div class="arch-stage" role="listitem">
+        <div class="arch-stage__box">
+          <div class="arch-stage__num">06</div>
+          <div class="arch-stage__name">Aircraft Training</div>
+          <div class="arch-stage__desc">Transfer to live aircraft operations on the Grob G120TP</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow" aria-hidden="true">→</div>
+
+      <div class="arch-stage" role="listitem">
+        <div class="arch-stage__box">
+          <div class="arch-stage__num">07</div>
+          <div class="arch-stage__name">Briefing &amp; Debriefing</div>
+          <div class="arch-stage__desc">Mission preparation, replay, evaluation and improvement</div>
+        </div>
+      </div>
+
+    </div><!-- /.arch-flow -->
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 4 — HIGH-FIDELITY TWIN
+════════════════════════════════════════════ -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="twin-layout">
+
+      <div class="twin-left">
+        <p class="eyebrow">Type-Specific Design</p>
+        <h2 class="s-heading">A high-fidelity twin of the Grob G120TP</h2>
+
+        <p class="twin-body">
+          All Grob training devices are based on the Grob G120TP. They are not generic
+          simulators adapted to multiple aircraft types. Across the ecosystem, pilots train
+          with the same cockpit logic, avionics structure and procedural architecture as
+          the aircraft platform.
+        </p>
+
+        <p class="twin-supports">This type-specific approach supports:</p>
+        <ul class="dot-list">
+          <li>earlier cockpit familiarity</li>
+          <li>stronger procedural consistency</li>
+          <li>more efficient transfer from simulation to flight</li>
+          <li>a closer connection between training and operations</li>
+        </ul>
+      </div>
+
+      <div class="twin-right">
+        <div class="fcard-grid">
+          <div class="fcard">
+            <div class="fcard__title">Type-Specific Architecture</div>
+            <p class="fcard__text">Every device is built around the Grob G120TP cockpit environment.</p>
+          </div>
+          <div class="fcard">
+            <div class="fcard__title">Consistent Cockpit Logic</div>
+            <p class="fcard__text">Consistent avionics, controls and procedures across the training system.</p>
+          </div>
+          <div class="fcard">
+            <div class="fcard__title">Continuous Learning Path</div>
+            <p class="fcard__text">Training progresses through multiple devices without changing aircraft logic.</p>
+          </div>
+          <div class="fcard">
+            <div class="fcard__title">Stronger Transfer to Flight</div>
+            <p class="fcard__text">Simulation remains closely aligned with aircraft operations and mission preparation.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
 
 <!-- ═══════════════════════════════════════════
-     PERFORMANCE
+     SECTION 5 — TRAINING DEVICES
 ════════════════════════════════════════════ -->
-<section class="section section--light" id="performance">
+<section class="section" id="devices">
   <div class="container">
-    <p class="eyebrow">Performance Data</p>
-    <h2 class="s-heading">A Motorglider<br />That Feels Brand New</h2>
-    <p class="s-lead">
-      Paired with a hydraulically adjustable MT Constant Speed Propeller, the Rotax 912iSc3
-      delivers significant gains across all key flight parameters.
+    <p class="eyebrow">Training Devices</p>
+    <h2 class="s-heading">Training devices across the full spectrum of pilot preparation</h2>
+    <p class="devices-intro">
+      The Grob training ecosystem includes multiple type-specific devices supporting
+      different stages of pilot training and mission preparation.
     </p>
 
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-card__label">Power Output</div>
-        <div class="stat-card__value"><span>+</span>12.5<span>%</span></div>
-        <div class="stat-card__detail">100 SHP — significant overall<br />performance boost</div>
+    <div class="device-grid">
+
+      <div class="device-card">
+        <div class="device-card__media">
+          <span class="device-card__media-label">Mixed Reality Cockpit Trainer</span>
+        </div>
+        <div class="device-card__body">
+          <div class="device-card__title">Mixed Reality Cockpit Trainer</div>
+          <div class="device-card__subtitle">Early Familiarization &amp; Immersive Cockpit Training</div>
+          <p class="device-card__desc">
+            Supports cockpit orientation, procedures and early training in a highly accessible
+            environment based on the Grob G120TP cockpit architecture.
+          </p>
+          <ul class="device-card__list">
+            <li>type-specific cockpit environment</li>
+            <li>immersive training experience</li>
+            <li>early-stage procedural familiarization</li>
+          </ul>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-card__label">Take-Off Ground Roll</div>
-        <div class="stat-card__value"><span>−</span>20<span>%</span></div>
-        <div class="stat-card__detail">250 m ground roll<br />(Sea Level, ISA conditions)</div>
+
+      <div class="device-card">
+        <div class="device-card__media">
+          <span class="device-card__media-label">Basic Instrument Training Device</span>
+        </div>
+        <div class="device-card__body">
+          <div class="device-card__title">Basic Instrument Training Device</div>
+          <div class="device-card__subtitle">Foundations for Instrument and Procedures Training</div>
+          <p class="device-card__desc">
+            Supports structured training for instrument procedures, navigation tasks and
+            core cockpit workflows within a type-specific training environment.
+          </p>
+          <ul class="device-card__list">
+            <li>Grob G120TP cockpit logic</li>
+            <li>procedural and instrument training</li>
+            <li>instructor-led learning scenarios</li>
+          </ul>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-card__label">Cruise Speed</div>
-        <div class="stat-card__value"><span>+</span>5<span>%</span></div>
-        <div class="stat-card__detail">Higher speeds at 5,000 ft<br />altitude cruise</div>
+
+      <div class="device-card">
+        <div class="device-card__media">
+          <span class="device-card__media-label">Flight &amp; Procedures Trainer</span>
+        </div>
+        <div class="device-card__body">
+          <div class="device-card__title">Flight &amp; Procedures Trainer</div>
+          <div class="device-card__subtitle">Advanced Procedural and Mission-Oriented Simulation</div>
+          <p class="device-card__desc">
+            Expands training depth with higher procedural fidelity and broader support for
+            structured pilot training tasks.
+          </p>
+          <ul class="device-card__list">
+            <li>advanced simulation capability</li>
+            <li>type-specific procedures</li>
+            <li>training progression toward higher readiness</li>
+          </ul>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-card__label">Weight Saving</div>
-        <div class="stat-card__value"><span>−</span>20<span>kg</span></div>
-        <div class="stat-card__detail">Lighter modern powerplant<br />improves payload &amp; efficiency</div>
+
+      <div class="device-card">
+        <div class="device-card__media">
+          <span class="device-card__media-label">Advanced Dome Simulator</span>
+        </div>
+        <div class="device-card__body">
+          <div class="device-card__title">Advanced Dome Simulator</div>
+          <div class="device-card__subtitle">High-Immersion Operational Training</div>
+          <p class="device-card__desc">
+            Enables realistic scenario training, mission rehearsal and operational preparation
+            in an advanced simulation environment.
+          </p>
+          <ul class="device-card__list">
+            <li>immersive visual environment</li>
+            <li>operational scenario capability</li>
+            <li>mission-focused training support</li>
+          </ul>
+        </div>
       </div>
-    </div>
+
+    </div><!-- /.device-grid -->
   </div>
 </section>
 
-<hr class="divider" />
-
 
 <!-- ═══════════════════════════════════════════
-     COCKPIT FEATURES
+     SECTION 6 — MISSION ENVIRONMENT / BYO AIRFIELD
 ════════════════════════════════════════════ -->
-<section class="section" id="cockpit">
+<section class="section section--alt" id="mission-env">
   <div class="container">
-    <div class="features-layout">
+    <div class="env-layout">
 
-      <!-- Left: feature list -->
-      <div>
-        <p class="eyebrow">Modern Pilot Experience</p>
-        <h2 class="s-heading">Simplify Your<br />Time in the Cockpit</h2>
-        <p class="s-lead">
-          The Rotax conversion reduces workload and enhances situational awareness,
-          so you can focus on the joy of flying.
+      <div class="env-left">
+        <p class="eyebrow">Operational Environment</p>
+        <h2 class="s-heading">Train in your operational environment</h2>
+
+        <p class="env-body">
+          Beyond cockpit procedures, the training ecosystem supports mission-oriented
+          preparation in environments aligned with real operations.
+          The system can be configured to reflect:
         </p>
 
-        <div class="feature-list">
-          <div class="feature-item">
-            <div class="feature-item__num">01</div>
-            <div>
-              <div class="feature-item__title">Simplified Engine Management</div>
-              <p class="feature-item__desc">
-                The Electronic Control Unit (ECU) optimizes fuel consumption and
-                eliminates the need for manual engine adjustments during flight.
-                Manual magneto checks are replaced by a simple ECU channel check
-                (Channel A/B) performed at 4,000 RPM.
-              </p>
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-item__num">02</div>
-            <div>
-              <div class="feature-item__title">Digital Precision</div>
-              <p class="feature-item__desc">
-                The kit includes the Kanardia Digi-F digital engine display, providing
-                clear, real-time data on all engine parameters at a glance.
-              </p>
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-item__num">03</div>
-            <div>
-              <div class="feature-item__title">Enhanced Reliability</div>
-              <p class="feature-item__desc">
-                Benefit from a 2,000-hour TBO and a redundant dual-channel electronic
-                management system for maximum operational peace of mind.
-              </p>
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-item__num">04</div>
-            <div>
-              <div class="feature-item__title">Fuel Flexibility</div>
-              <p class="feature-item__desc">
-                Fly without restrictions using MOGAS (EN 228), Super E10, or
-                AVGAS 100LL — approved and validated for all operating conditions.
-              </p>
-            </div>
-          </div>
+        <ul class="dot-list" style="margin-bottom: 1.5rem;">
+          <li>operating airfields</li>
+          <li>terrain and surrounding geography</li>
+          <li>airspace structure</li>
+          <li>routes and operational procedures</li>
+          <li>mission scenarios</li>
+        </ul>
+
+        <p class="env-body">
+          This allows training organizations to move from procedural instruction toward
+          operational preparation within a type-specific training environment.
+        </p>
+
+        <div class="highlight-box">
+          <div class="highlight-box__title">Build Your Own Airfield</div>
+          <p class="highlight-box__text">
+            Configure training environments to reflect your real operating locations
+            and mission context.
+          </p>
         </div>
       </div>
 
-      <!-- Right: spec panel -->
-      <div>
-        <div class="spec-panel">
-          <div class="spec-panel__title">Engine Specifications — Rotax 912iSc3</div>
-          <div class="spec-row">
-            <div class="spec-row__key">Engine Model</div>
-            <div class="spec-row__val">Rotax 912iSc3 Sport</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row__key">Max Power</div>
-            <div class="spec-row__val spec-row__val--accent">100 SHP</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row__key">TBO</div>
-            <div class="spec-row__val">2,000 Hours</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row__key">Engine Management</div>
-            <div class="spec-row__val">Dual-Channel ECU</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row__key">Propeller</div>
-            <div class="spec-row__val">MT Constant Speed</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row__key">Approved Fuel</div>
-            <div class="spec-row__val">MOGAS / E10 / AVGAS</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row__key">Oil Spec</div>
-            <div class="spec-row__val">SI-912 i-001 (RON 424)</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row__key">Rotation</div>
-            <div class="spec-row__val">Clockwise (Right Rudder)</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row__key">Weight Reduction</div>
-            <div class="spec-row__val spec-row__val--accent">−20 kg</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row__key">LED Landing Light</div>
-            <div class="spec-row__val">Integrated (Cowling)</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row__key">Display</div>
-            <div class="spec-row__val">Kanardia Digi-F</div>
-          </div>
+      <div class="env-right">
+        <div class="terrain-display" aria-label="Operational environment configuration diagram" role="img">
+          <svg viewBox="0 0 440 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <pattern id="tgrid" width="30" height="30" patternUnits="userSpaceOnUse">
+                <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+              </pattern>
+            </defs>
+
+            <!-- Background -->
+            <rect width="440" height="300" fill="#1d2125"/>
+            <rect width="440" height="300" fill="url(#tgrid)"/>
+
+            <!-- Header bar -->
+            <rect y="0" width="440" height="22" fill="rgba(0,0,0,0.4)"/>
+            <text x="12" y="15" fill="#6e6b66" font-size="7" font-family="monospace" letter-spacing="0.18em" text-anchor="start">OPERATIONAL ENVIRONMENT CONFIG</text>
+            <circle cx="424" cy="11" r="3" fill="rgba(110,107,102,0.6)"/>
+            <circle cx="412" cy="11" r="3" fill="rgba(110,107,102,0.4)"/>
+            <circle cx="400" cy="11" r="3" fill="rgba(110,107,102,0.2)"/>
+
+            <!-- Terrain contour lines -->
+            <path d="M 10 250 Q 90 215 160 235 Q 230 255 300 220 Q 360 185 430 205" fill="none" stroke="rgba(110,107,102,0.35)" stroke-width="1.5"/>
+            <path d="M 10 265 Q 90 232 160 250 Q 230 268 300 235 Q 360 200 430 218" fill="none" stroke="rgba(110,107,102,0.22)" stroke-width="1"/>
+            <path d="M 10 278 Q 90 248 160 264 Q 230 280 300 248 Q 360 215 430 232" fill="none" stroke="rgba(110,107,102,0.12)" stroke-width="1"/>
+            <text x="60" y="285" fill="#6e6b66" font-size="7" font-family="monospace" letter-spacing="0.1em">TERRAIN</text>
+
+            <!-- Route: dashed path between waypoints -->
+            <line x1="60" y1="170" x2="175" y2="120" stroke="#6e6b66" stroke-width="1.5" stroke-dasharray="6,4"/>
+            <line x1="175" y1="120" x2="310" y2="155" stroke="#6e6b66" stroke-width="1.5" stroke-dasharray="6,4"/>
+            <line x1="310" y1="155" x2="390" y2="100" stroke="#6e6b66" stroke-width="1.5" stroke-dasharray="6,4"/>
+            <text x="100" y="135" fill="#8A8783" font-size="7" font-family="monospace" letter-spacing="0.1em">ROUTE</text>
+
+            <!-- Waypoint dots -->
+            <circle cx="60" cy="170" r="3" fill="#8A8783"/>
+            <circle cx="310" cy="155" r="3" fill="#8A8783"/>
+            <circle cx="390" cy="100" r="3" fill="#8A8783"/>
+
+            <!-- Airfield (crosshair) at 175,120 -->
+            <circle cx="175" cy="120" r="10" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
+            <line x1="165" y1="120" x2="185" y2="120" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+            <line x1="175" y1="110" x2="175" y2="130" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+            <!-- Runway -->
+            <rect x="165" y="117" width="22" height="5" rx="1" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1" transform="rotate(-18, 175, 120)"/>
+            <text x="175" y="99" fill="rgba(255,255,255,0.8)" font-size="7.5" font-family="monospace" letter-spacing="0.1em" text-anchor="middle">AIRFIELD</text>
+
+            <!-- Airspace sector -->
+            <path d="M 200 180 L 270 80 A 85 85 0 0 1 348 120 Z" fill="rgba(110,107,102,0.07)" stroke="rgba(110,107,102,0.35)" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="295" y="75" fill="#8A8783" font-size="7" font-family="monospace" letter-spacing="0.1em" text-anchor="middle">AIRSPACE</text>
+
+            <!-- Scenario target at 310,155 -->
+            <circle cx="310" cy="155" r="14" fill="none" stroke="rgba(110,107,102,0.45)" stroke-width="1"/>
+            <circle cx="310" cy="155" r="7" fill="none" stroke="rgba(110,107,102,0.3)" stroke-width="1"/>
+            <circle cx="310" cy="155" r="3" fill="#6e6b66"/>
+            <text x="310" y="178" fill="#8A8783" font-size="7" font-family="monospace" letter-spacing="0.1em" text-anchor="middle">SCENARIO</text>
+
+            <!-- Scale bar bottom-right -->
+            <line x1="360" y1="285" x2="420" y2="285" stroke="rgba(110,107,102,0.5)" stroke-width="1"/>
+            <line x1="360" y1="282" x2="360" y2="288" stroke="rgba(110,107,102,0.5)" stroke-width="1"/>
+            <line x1="420" y1="282" x2="420" y2="288" stroke="rgba(110,107,102,0.5)" stroke-width="1"/>
+            <text x="390" y="296" fill="#6e6b66" font-size="6.5" font-family="monospace" letter-spacing="0.12em" text-anchor="middle">SCALE</text>
+          </svg>
         </div>
       </div>
 
@@ -1291,317 +1081,176 @@
   </div>
 </section>
 
-<hr class="divider" />
-
 
 <!-- ═══════════════════════════════════════════
-     ORDER / FORM
+     SECTION 7 — BRIEFING / DEBRIEFING / MISSION MANAGEMENT
 ════════════════════════════════════════════ -->
-<section class="section" id="order">
+<section class="section">
   <div class="container">
-    <div class="order-layout">
+    <p class="eyebrow">Mission Cycle</p>
+    <h2 class="s-heading">Integrated mission planning, briefing and debriefing</h2>
+    <p class="mission-intro">
+      The Grob training ecosystem extends beyond the simulator itself. It supports the broader
+      mission cycle through planning, briefing, replay and performance analysis.
+    </p>
 
-      <!-- Left: info + pricing -->
-      <div>
-        <p class="eyebrow">Reserve Your Conversion Kit</p>
-        <h2 class="s-heading">Now Accepting<br />Orders for 2026</h2>
-        <p class="s-lead">
-          Choose between a complete Kit Delivery for installation by your local
-          Grob-recognized organization, or a Full-Service Conversion at our facility
-          in Tussenhausen-Mattsies.
-        </p>
-
-        <div class="offer-flag">★&nbsp; Special Offer — First 5 Full-Service Orders</div>
-        <p style="font-weight:300;font-size:0.88rem;color:var(--grob-text-muted);margin-bottom:2.5rem;line-height:1.65;">
-          A <strong style="color:var(--white);font-weight:400;">€10,000 discount</strong> is available
-          for the first five full-service conversion orders. Secure your slot now.
-        </p>
-
-        <div class="pricing-table">
-          <div class="pricing-row">
-            <div class="pricing-row__tag">A</div>
-            <div class="pricing-row__body">
-              <div class="pricing-row__name">Kit Delivery</div>
-              <div class="pricing-row__sub">Installation by Grob-recognized organization</div>
-            </div>
-            <div class="pricing-row__price">
-              <div class="pricing-row__amount">€99,000</div>
-              <div class="pricing-row__net">net</div>
-            </div>
-          </div>
-          <div class="pricing-row pricing-row--active">
-            <div class="pricing-row__tag">B</div>
-            <div class="pricing-row__body">
-              <div class="pricing-row__name">Full Service at Grob SE</div>
-              <div class="pricing-row__sub">Complete conversion at our facility</div>
-            </div>
-            <div class="pricing-row__price">
-              <div class="pricing-row__amount">€120,000</div>
-              <div class="pricing-row__net">net</div>
-            </div>
-          </div>
-        </div>
-
-        <p style="font-weight:300;font-size:0.72rem;color:var(--grob-text-muted);margin-top:1.5rem;line-height:1.6;">
-          Estimated lead time approx. 10 months.<br />
-          Propellers are manufactured on order. Prices are net, excluding VAT and shipping.
-        </p>
-
-        <p style="font-weight:300;font-size:0.8rem;color:var(--grob-text-muted);margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--grob-border);line-height:1.65;">
-          Are you a maintenance organization?
-          <a href="partners.html" style="color:var(--grob-text-light);border-bottom:1px solid var(--grob-accent);padding-bottom:1px;">Learn about our installation partner program&nbsp;→</a>
-        </p>
+    <div class="mission-grid">
+      <div class="mission-col">
+        <div class="mission-col__phase">Phase 01</div>
+        <div class="mission-col__title">Plan</div>
+        <ul class="mission-list">
+          <li>mission setup</li>
+          <li>route and scenario definition</li>
+          <li>instructor preparation</li>
+        </ul>
       </div>
-
-      <!-- Right: form -->
-      <div>
-        <div class="form-card">
-          <div class="form-card__title">Request a Personalized Offer</div>
-
-          <form id="contact-form" onsubmit="handleSubmit(event)">
-            <div class="form-grid">
-              <div class="field">
-                <label for="name">Full Name / Club Name</label>
-                <input type="text" id="name" name="name" placeholder="e.g. Aero Club München" required />
-              </div>
-              <div class="field">
-                <label for="serial">Aircraft Serial Number (S/N)</label>
-                <input type="text" id="serial" name="serial" placeholder="e.g. E-109-001" required />
-              </div>
-              <div class="field">
-                <label for="registration">Current Registration</label>
-                <input type="text" id="registration" name="registration" placeholder="e.g. D-KABC" required />
-              </div>
-              <div class="field">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required />
-              </div>
-              <div class="field form-full">
-                <label for="option">Preferred Conversion Option</label>
-                <select id="option" name="option" required>
-                  <option value="">Select an option…</option>
-                  <option value="A">Option A — Kit Delivery (€99,000.00 Net)</option>
-                  <option value="B">Option B — Full Service at Grob SE (€120,000.00 Net)</option>
-                </select>
-              </div>
-              <div class="field form-full">
-                <label for="message">Additional Notes (optional)</label>
-                <textarea id="message" name="message" placeholder="Any questions, specific requirements, or scheduling preferences…"></textarea>
-              </div>
-            </div>
-
-            <div class="form-submit">
-              <button type="submit" class="btn btn--primary btn--full">Submit Request</button>
-              <p class="form-note">
-                We will respond with a formal quote within 2 business days.
-                All information is handled confidentially.
-              </p>
-            </div>
-          </form>
-
-          <div class="form-success" id="form-success">
-            <div class="form-success__check">✓</div>
-            <div class="form-success__title">Request Submitted</div>
-            <p class="form-success__msg">
-              Thank you. A Grob Aircraft SE representative will be in touch within
-              2 business days with your formal quotation.
-            </p>
-          </div>
-        </div>
+      <div class="mission-col">
+        <div class="mission-col__phase">Phase 02</div>
+        <div class="mission-col__title">Brief</div>
+        <ul class="mission-list">
+          <li>pilot briefing support</li>
+          <li>mission objectives</li>
+          <li>training context and scenario review</li>
+        </ul>
       </div>
-
+      <div class="mission-col">
+        <div class="mission-col__phase">Phase 03</div>
+        <div class="mission-col__title">Debrief</div>
+        <ul class="mission-list">
+          <li>replay and review</li>
+          <li>instructor analysis</li>
+          <li>performance evaluation</li>
+          <li>continuous improvement</li>
+        </ul>
+      </div>
     </div>
+
+    <p class="mission-close">
+      This creates a complete training loop connecting preparation, execution and learning outcomes.
+    </p>
   </div>
 </section>
 
-<hr class="divider divider--light" />
-
 
 <!-- ═══════════════════════════════════════════
-     FAQ
+     SECTION 8 — BENEFITS / OUTCOMES
 ════════════════════════════════════════════ -->
-<section class="section section--light" id="faq">
+<section class="section section--alt">
   <div class="container">
-    <div style="text-align:center;margin-bottom:3.5rem;">
-      <p class="eyebrow eyebrow--center">Frequently Asked Questions</p>
-      <h2 class="s-heading s-heading--dark s-heading--center">
-        Everything You Need<br />to Know Before Ordering
-      </h2>
+    <p class="eyebrow">Training Outcomes</p>
+    <h2 class="s-heading">Training outcomes supported by the Grob ecosystem</h2>
+
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <div class="benefit-card__title">Earlier Risk Reduction</div>
+        <p class="benefit-card__text">Introduce aircraft-specific cockpit logic early in the training pipeline.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-card__title">Procedural Consistency</div>
+        <p class="benefit-card__text">Maintain the same aircraft logic across multiple training stages.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-card__title">Operational Relevance</div>
+        <p class="benefit-card__text">Connect simulation with mission environments, briefing and debriefing.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-card__title">Scalable Architecture</div>
+        <p class="benefit-card__text">Build a training system that supports evolving program requirements.</p>
+      </div>
     </div>
 
-    <div class="faq-section">
-      <details class="faq-item">
-        <summary class="faq-item__q">
-          What exactly is included in the conversion kit?
-          <span class="faq-item__icon">+</span>
-        </summary>
-        <div class="faq-item__a">
-          The kit is a comprehensive "firewall-forward" solution including the Rotax 912iSc3
-          engine, engine mount, vibration dampers, unfeathering accumulator, and a new engine
-          cowling featuring an integrated high-power LED landing light.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-item__q">
-          How does engine handling change compared to the original Grob engine?
-          <span class="faq-item__icon">+</span>
-        </summary>
-        <div class="faq-item__a">
-          Handling is significantly easier. Manual magneto checks are replaced by a simple ECU
-          channel check (Channel A/B) performed at 4,000 RPM. Additionally, the Rotax engine
-          rotates clockwise, meaning directional control is maintained with right rudder during
-          the take-off run, unlike the original configuration.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-item__q">
-          What are the fuel and oil requirements for the new engine?
-          <span class="faq-item__icon">+</span>
-        </summary>
-        <div class="faq-item__a">
-          The Rotax engine is highly flexible. It is approved for EN 228 Super/Super Plus and
-          Super E10. While AVGAS 100LL is permitted, please note that it increases stress on
-          valve seats and requires reduced oil change intervals. Approved oil must meet Rotax
-          Service Instruction SI-912 i-001 (RON 424).
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-item__q">
-          What is the estimated lead time?
-          <span class="faq-item__icon">+</span>
-        </summary>
-        <div class="faq-item__a">
-          The estimated delivery time is approximately 10 months, as propellers are manufactured
-          on order. We recommend placing your order early to secure your preferred delivery slot
-          for 2026.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-item__q">
-          How is the weight and balance affected after the conversion?
-          <span class="faq-item__icon">+</span>
-        </summary>
-        <div class="faq-item__a">
-          While the conversion results in a 20 kg weight saving, a new aircraft weighing must
-          be performed after installation to determine the new Center of Gravity (CG) and empty
-          weight, which must then be recorded in your updated Aircraft Flight Manual.
-        </div>
-      </details>
-    </div>
+    <p class="benefit-close">
+      A type-specific training ecosystem can support both pilot readiness and operational readiness.
+    </p>
   </div>
 </section>
 
 
 <!-- ═══════════════════════════════════════════
-     ARTICLES
+     SECTION 9 — FEATURED ARTICLES
 ════════════════════════════════════════════ -->
 <section class="section" id="articles">
   <div class="container">
-    <p class="eyebrow">Knowledge Base</p>
-    <h2 class="s-heading">Articles</h2>
-    <p class="s-lead">
-      In-depth technical articles on the G&nbsp;109B modernization program,
-      the Rotax 912iSc3 conversion, and what it means for your aircraft.
+    <p class="eyebrow">Insights</p>
+    <h2 class="s-heading">Related insights</h2>
+    <p class="articles-intro">
+      Background and context on training modernization, type-specific simulation
+      and integrated training architectures.
     </p>
 
     <div class="articles-grid">
-      <a class="article-card" href="articles/breathing-new-life-into-a-legend.html">
-        <div class="article-card__tag">Engineering · Modernization</div>
-        <div class="article-card__title">Breathing New Life into a Legend: The Grob G&nbsp;109B's High-Tech Evolution</div>
+      <article class="article-card">
+        <div class="article-card__tag">Training Modernization</div>
+        <h3 class="article-card__title">Why pilot training programs are modernizing simulation infrastructure</h3>
         <p class="article-card__excerpt">
-          Four decades after its debut, many G&nbsp;109B owners face a critical crossroads as legacy
-          G&nbsp;2500 engines exhaust their TBO cycles. Discover how the Rotax 912iSc3 conversion
-          is not just an engine swap — it is a complete technical renaissance for a legendary airframe.
+          Explore the operational and training drivers behind the shift from standalone
+          simulators to integrated training environments.
         </p>
-        <span class="article-card__link">Read Article</span>
-      </a>
-      <a class="article-card" href="articles/bridging-generations.html">
-        <div class="article-card__tag">Strategy · Fleet Sustainability</div>
-        <div class="article-card__title">Bridging Generations: Grob Aircraft's Vision for Autonomous Innovation and Legacy Excellence</div>
+        <a href="#" class="article-card__link">Read article</a>
+      </article>
+      <article class="article-card">
+        <div class="article-card__tag">Simulation Design</div>
+        <h3 class="article-card__title">The role of type-specific simulation in pilot preparation</h3>
         <p class="article-card__excerpt">
-          From the autonomous CA-1 Europa fighter to the G&nbsp;109B modernization program — how Grob
-          Aircraft SE's engineering philosophy ensures no pilot, and no airframe, is ever left behind.
+          See how aircraft-specific cockpit environments support consistency
+          across the training pipeline.
         </p>
-        <span class="article-card__link">Read Article</span>
-      </a>
-      <a class="article-card" href="articles/technical-evaluation-report.html">
-        <div class="article-card__tag">Technical Report · Engineering Analysis</div>
-        <div class="article-card__title">Technical Evaluation Report: G&nbsp;109B Engine Modernization (G&nbsp;2500 to Rotax 912iSc3)</div>
+        <a href="#" class="article-card__link">Read article</a>
+      </article>
+      <article class="article-card">
+        <div class="article-card__tag">Mission Systems</div>
+        <h3 class="article-card__title">From mission planning to debriefing: expanding the role of the simulator</h3>
         <p class="article-card__excerpt">
-          A rigorous engineering assessment of the G&nbsp;2500 to Rotax 912iSc3 transition —
-          covering comparative powerplant analysis, quantitative performance gains, system
-          redundancy, and the professional business case for the upgrade.
+          Understand how modern training ecosystems connect planning, simulation
+          and performance analysis.
         </p>
-        <span class="article-card__link">Read Article</span>
-      </a>
+        <a href="#" class="article-card__link">Read article</a>
+      </article>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
 
 <!-- ═══════════════════════════════════════════
-     AUDIO
+     SECTION 10 — FINAL CTA
 ════════════════════════════════════════════ -->
-<section class="section section--audio" id="audio">
+<section class="section cta-section" id="contact">
   <div class="container">
-    <p class="eyebrow">Audio</p>
-    <h2 class="s-heading">Listen</h2>
-    <p class="s-lead">
-      Prefer to listen? Our audio articles cover the same technical depth as the written
-      reports — ideal for the cockpit, the workshop, or the commute.
-    </p>
-
-    <a class="podcast-card" href="articles/podcast-engine-modernization.html?autoplay=1">
-      <div class="podcast-card__play" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 5.14v14l11-7-11-7z"/>
-        </svg>
+    <div class="cta-block">
+      <p class="eyebrow eyebrow--center">Next Steps</p>
+      <h2 class="cta-block__heading">Evaluate your training architecture</h2>
+      <p class="cta-block__body">
+        Discuss how a type-specific training ecosystem built around the Grob G120TP
+        can support modernization of your pilot training program.
+      </p>
+      <div class="cta-block__actions">
+        <a href="mailto:training@grob-aircraft.com" class="btn btn--primary">Request a Training System Briefing</a>
+        <a href="mailto:training@grob-aircraft.com" class="btn btn--outline">Contact the Training Team</a>
       </div>
-      <div class="podcast-card__body">
-        <div class="podcast-card__tag">Audio Article &nbsp;·&nbsp; Technical Analysis</div>
-        <div class="podcast-card__title">G&nbsp;109B Engine Modernization &mdash; A Technical Analysis</div>
-        <p class="podcast-card__excerpt">
-          A guided audio walkthrough of the G&nbsp;2500 to Rotax 912iSc3 conversion &mdash;
-          covering powerplant comparison, performance data, system redundancy, and the
-          operational business case for operators and fleet managers.
-        </p>
-        <div class="podcast-card__topics">
-          <span>Powerplant Comparison</span>
-          <span>ECU &amp; Fuel Injection</span>
-          <span>Performance Data</span>
-          <span>System Redundancy</span>
-          <span>EASA Certification</span>
-        </div>
-      </div>
-      <div class="podcast-card__cta">
-        <span class="podcast-card__cta-label">Listen Now</span>
-        <span class="podcast-card__cta-arrow">→</span>
-      </div>
-    </a>
+      <p class="cta-block__note">For flight academies, military training organizations and government operators.</p>
+    </div>
   </div>
 </section>
-
-<hr class="divider" />
 
 
 <!-- ═══════════════════════════════════════════
      FOOTER
 ════════════════════════════════════════════ -->
 <footer class="footer">
+  <div class="footer__top">
+    <img src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png" alt="Grob Aircraft SE" class="footer__logo" />
+    <nav class="footer__nav" aria-label="Footer navigation">
+      <a href="#ecosystem" class="footer__link">Training Ecosystem</a>
+      <a href="#devices" class="footer__link">Training Devices</a>
+      <a href="#mission-env" class="footer__link">Mission Environment</a>
+      <a href="#articles" class="footer__link">Articles</a>
+      <a href="#contact" class="footer__link">Contact</a>
+    </nav>
+  </div>
   <div class="footer__inner">
-    <img
-      src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png"
-      alt="Grob Aircraft SE"
-      class="footer__logo"
-    />
-    <div class="footer__legal">
-      &copy; 2026 Grob Aircraft SE. All rights reserved.<br />
-      Prices net, excl. VAT and shipping. Specifications subject to change without notice.
+    <div class="footer__bottom">
+      <span class="footer__copy">&copy; 2026 Grob Aircraft SE. All rights reserved.</span>
+      <span class="footer__legal">Grob Aircraft training systems and aircraft-specific simulation environments.</span>
     </div>
   </div>
 </footer>
@@ -1631,22 +1280,14 @@
       nav.classList.contains('nav--open') ? closeMenu() : openMenu();
     });
 
-    /* close on any link tap */
     mobile.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', closeMenu);
     });
 
-    /* close on Escape */
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeMenu();
     });
   }());
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    document.getElementById('contact-form').style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
-  }
 </script>
 
 </body>

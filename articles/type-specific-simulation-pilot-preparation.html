@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Role of Type-Specific Simulation in Pilot Preparation | Grob Aircraft SE</title>
+
+  <style>
+    /* ─── GROB AIRCRAFT SE BRAND FONTS ─── */
+    @font-face {
+      font-family: 'Transducer Extended';
+      src: url('../fonts/Transducer-ExtendedRegular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Suisse Intl';
+      src: url('../fonts/SuisseIntl-Light.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Suisse Intl Mono';
+      src: url('../fonts/SuisseIntlMono-Regular-WebXL.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ─── DESIGN TOKENS ─── */
+    :root {
+      --grob-bg:          #141516;
+      --grob-bg-mid:      #1d2125;
+      --grob-bg-card:     #27292a;
+      --grob-text:        #B4B1AB;
+      --grob-text-light:  #DED6CB;
+      --grob-text-muted:  #8A8783;
+      --grob-accent:      #6e6b66;
+      --grob-accent-dark: #4a4845;
+      --grob-border:      rgba(255,255,255,0.1);
+      --white:            #ffffff;
+      --max-w:            1200px;
+      --font-heading:     'Transducer Extended', system-ui, Arial, sans-serif;
+      --font-body:        'Suisse Intl', system-ui, -apple-system, Arial, sans-serif;
+      --font-mono:        'Suisse Intl Mono', monospace;
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.6;
+      background: var(--grob-bg);
+      color: var(--grob-text);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── NAVIGATION ─── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: var(--grob-bg);
+      border-bottom: 1px solid var(--grob-border);
+      height: 68px;
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .nav__logo { height: 22px; width: auto; }
+    .nav__links {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+    .nav__links a {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+      transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--white); }
+    .nav__cta {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--grob-accent);
+      padding: 0.6rem 1.5rem;
+      transition: background 0.2s;
+    }
+    .nav__cta:hover { background: var(--grob-accent-dark); }
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    .nav__burger-bar {
+      display: block;
+      width: 22px; height: 1.5px;
+      background: var(--white);
+      transition: opacity 0.2s;
+    }
+    .nav__mobile {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0; bottom: 0;
+      background: var(--grob-bg);
+      padding: 2rem;
+      z-index: 199;
+      overflow-y: auto;
+    }
+    .nav--open .nav__mobile { display: block; }
+    .nav__mobile-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .nav__mobile-links a {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+    }
+    .nav__mobile-cta {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--grob-accent);
+      padding: 1rem 1.5rem;
+      display: inline-block;
+    }
+    body.nav-open { overflow: hidden; }
+
+    /* ─── ARTICLE WRAPPER ─── */
+    .article-wrapper {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    /* ─── ARTICLE HERO ─── */
+    .article-hero {
+      padding: 7rem 2rem 4rem;
+      border-bottom: 1px solid var(--grob-border);
+    }
+    .article-hero__inner { max-width: 740px; }
+    .article-hero__back {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .article-hero__back::before { content: '←'; }
+    .article-hero__back:hover { color: var(--white); }
+    .article-hero__tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grob-accent);
+      margin-bottom: 1.25rem;
+    }
+    .article-hero__title {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      line-height: 1.05;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .article-hero__meta {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--grob-text-muted);
+    }
+
+    /* ─── ARTICLE BODY ─── */
+    .article-body {
+      padding: 4rem 2rem 6rem;
+      max-width: 740px;
+    }
+
+    .article-section { margin-bottom: 3rem; }
+    .article-section__heading {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--grob-border);
+    }
+    .article-section p {
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--grob-text);
+      margin-bottom: 1rem;
+    }
+    .article-section p:last-child { margin-bottom: 0; }
+
+    /* List */
+    .article-list {
+      list-style: none;
+      margin: 1rem 0 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .article-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--grob-text);
+      line-height: 1.6;
+    }
+    .article-list li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--grob-accent);
+      margin-top: 0.45em;
+    }
+
+    /* Ordered list */
+    .article-steps {
+      list-style: none;
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      counter-reset: steps;
+    }
+    .article-steps li {
+      counter-increment: steps;
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--grob-text);
+      line-height: 1.6;
+    }
+    .article-steps li::before {
+      content: counter(steps);
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--grob-accent);
+      min-width: 1.4rem;
+      padding-top: 0.15em;
+    }
+
+    /* Pull quote */
+    .article-quote {
+      border-left: 3px solid var(--grob-accent);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      background: var(--grob-bg-mid);
+    }
+    .article-quote p {
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--grob-text-light);
+      margin: 0;
+    }
+
+    /* Callout box */
+    .article-callout {
+      background: var(--grob-bg-mid);
+      border: 1px solid var(--grob-border);
+      border-left: 3px solid var(--grob-accent);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+    }
+    .article-callout__label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grob-accent);
+      margin-bottom: 0.6rem;
+    }
+    .article-callout p {
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--grob-text);
+      margin: 0;
+    }
+
+    /* CTA bar */
+    .article-cta {
+      background: var(--grob-bg-mid);
+      border: 1px solid var(--grob-border);
+      border-left: 3px solid var(--grob-accent);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 4rem;
+    }
+    .article-cta__text {
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--grob-text-muted);
+      line-height: 1.6;
+    }
+    .article-cta__text strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .btn {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.9rem 2.25rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .btn--primary { background: var(--grob-accent); color: var(--white); }
+    .btn--primary:hover { background: var(--grob-accent-dark); }
+
+    /* Footer */
+    .footer { background: var(--grob-bg); border-top: 1px solid var(--grob-border); }
+    .footer__top { max-width: var(--max-w); margin: 0 auto; padding: 3rem 2rem; display: grid; grid-template-columns: auto 1fr; gap: 5rem; align-items: start; }
+    .footer__logo { height: 26px; width: auto; }
+    .footer__nav { display: flex; gap: 3rem; flex-wrap: wrap; align-items: center; }
+    .footer__link { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grob-text-muted); transition: color 0.2s; }
+    .footer__link:hover { color: var(--white); }
+    .footer__bottom { border-top: 1px solid var(--grob-border); max-width: var(--max-w); margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer__copy { font-weight: 300; font-size: 0.72rem; color: var(--grob-text-muted); }
+    .footer__legal-text { font-weight: 300; font-size: 0.72rem; color: var(--grob-text-muted); text-align: right; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav__burger { display: flex; }
+      .nav__cta    { display: none; }
+      .article-hero { padding: 4rem 1.5rem 3rem; }
+      .article-body { padding: 3rem 1.5rem 4rem; }
+      .footer__top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer__nav { gap: 1.25rem; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; }
+      .footer__legal-text { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="../index.html">
+      <img src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png" alt="Grob Aircraft SE" class="nav__logo" />
+    </a>
+    <ul class="nav__links">
+      <li><a href="../index.html#ecosystem">Training Ecosystem</a></li>
+      <li><a href="../index.html#devices">Training Devices</a></li>
+      <li><a href="../index.html#mission-env">Mission Environment</a></li>
+      <li><a href="../index.html#articles">Articles</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <a href="../index.html#contact" class="nav__cta">Request Briefing</a>
+    <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile">
+      <span class="nav__burger-bar"></span>
+      <span class="nav__burger-bar"></span>
+      <span class="nav__burger-bar"></span>
+    </button>
+  </div>
+  <div class="nav__mobile" id="nav-mobile" aria-hidden="true">
+    <ul class="nav__mobile-links">
+      <li><a href="../index.html#ecosystem">Training Ecosystem</a></li>
+      <li><a href="../index.html#devices">Training Devices</a></li>
+      <li><a href="../index.html#mission-env">Mission Environment</a></li>
+      <li><a href="../index.html#articles">Articles</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <a href="../index.html#contact" class="nav__mobile-cta">Request a Training System Briefing</a>
+  </div>
+</nav>
+
+
+<div class="article-wrapper">
+
+  <!-- ARTICLE HERO -->
+  <header class="article-hero">
+    <div class="article-hero__inner">
+      <a href="../index.html#articles" class="article-hero__back">Back to Articles</a>
+      <p class="article-hero__tag">Simulation Design</p>
+      <h1 class="article-hero__title">
+        The Role of Type-Specific<br />
+        Simulation in Pilot<br />
+        Preparation
+      </h1>
+      <div class="article-hero__meta">Grob Aircraft SE &nbsp;·&nbsp; Industry Insight</div>
+    </div>
+  </header>
+
+
+  <!-- ARTICLE BODY -->
+  <main class="article-body">
+
+    <!-- INTRO -->
+    <div class="article-section">
+      <p>
+        Simulation has long been a core component of pilot training. It provides a safe environment
+        to practice procedures, develop cockpit familiarity, and rehearse scenarios that would be
+        difficult or risky to perform in an aircraft. Traditionally, many simulation devices were
+        designed to represent general cockpit environments, allowing students to learn procedures
+        that applied to multiple aircraft types.
+      </p>
+      <p>
+        However, pilot training programs are increasingly moving toward type-specific simulation
+        environments. These systems replicate the cockpit architecture, avionics logic, and
+        operational procedures of a particular aircraft platform. By aligning the simulation
+        environment more closely with the aircraft, training organizations can improve consistency
+        across the entire training pipeline.
+      </p>
+      <p>
+        Type-specific simulation is becoming an important tool for preparing pilots more effectively
+        before they enter the aircraft.
+      </p>
+    </div>
+
+    <!-- 1 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Aligning Simulation with the Aircraft Platform</h2>
+      <p>
+        One of the most important benefits of type-specific simulation is the alignment between
+        the simulator and the aircraft itself.
+      </p>
+      <p>
+        In a type-specific environment, the simulation system reflects the aircraft's real
+        operational structure, including:
+      </p>
+      <ul class="article-list">
+        <li><div>cockpit layout and control positions</div></li>
+        <li><div>avionics displays and system logic</div></li>
+        <li><div>aircraft procedures and checklists</div></li>
+        <li><div>system behavior and interactions</div></li>
+      </ul>
+      <p>
+        When the simulation environment closely mirrors the aircraft, pilots develop familiarity
+        with the actual operational context they will encounter in flight.
+      </p>
+      <div class="article-quote">
+        <p>This reduces the cognitive gap between simulation training and aircraft operations.
+        Students who have trained in a type-specific cockpit environment typically require less
+        time to adapt when transitioning to the aircraft.</p>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Building Procedural Consistency Across Training Stages</h2>
+      <p>
+        Pilot training often involves multiple stages and training devices. Students may progress
+        through ground-based training tools, procedural simulators, and advanced simulation
+        environments before moving to the aircraft.
+      </p>
+      <p>
+        If each stage of training uses a different cockpit logic or layout, students must
+        repeatedly adapt to new environments. This can slow learning and create unnecessary
+        complexity.
+      </p>
+      <p>
+        Type-specific simulation addresses this issue by maintaining consistent cockpit
+        architecture across multiple training stages. Students encounter the same aircraft logic
+        when moving between training devices.
+      </p>
+      <div class="article-callout">
+        <div class="article-callout__label">Training Benefit</div>
+        <p>
+          This consistency allows students to focus on developing operational skills rather than
+          adapting to new interfaces. As a result, training becomes more structured and predictable.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Supporting Early Cockpit Familiarization</h2>
+      <p>
+        Introducing type-specific cockpit environments early in training can also improve how
+        students learn aircraft systems and procedures.
+      </p>
+      <p>
+        Early exposure to the aircraft's cockpit logic helps students understand:
+      </p>
+      <ul class="article-list">
+        <li><div>the location and function of cockpit controls</div></li>
+        <li><div>the flow of operational procedures</div></li>
+        <li><div>system interactions and decision-making processes</div></li>
+      </ul>
+      <p>
+        This early familiarization can take place before the student begins aircraft flight
+        training. When students enter the aircraft for the first time, the cockpit environment
+        already feels familiar. This allows instructors to focus more on flying skills and
+        situational awareness rather than basic cockpit orientation.
+      </p>
+    </div>
+
+    <!-- 4 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Improving Transfer of Training</h2>
+      <p>
+        One of the primary goals of simulation is to ensure that skills learned in the simulator
+        transfer effectively to the aircraft.
+      </p>
+      <p>
+        Type-specific simulation environments support this transfer by replicating the same
+        cockpit structure and procedural logic used in real operations. Pilots who train in these
+        environments can develop:
+      </p>
+      <ul class="article-list">
+        <li><div>procedural memory</div></li>
+        <li><div>cockpit workflow habits</div></li>
+        <li><div>familiarity with system interactions</div></li>
+      </ul>
+      <p>
+        Because the simulation environment reflects the aircraft platform, these skills transfer
+        more directly to real flight operations. This improves training efficiency and can reduce
+        the time required to reach operational proficiency.
+      </p>
+    </div>
+
+    <!-- 5 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Enabling Structured Training Programs</h2>
+      <p>
+        Structured pilot training programs benefit from training systems that reinforce consistent
+        learning paths. Type-specific simulation allows training organizations to design programs
+        in which each stage builds logically on the previous one.
+      </p>
+      <p>For example, a training pipeline might include:</p>
+      <ol class="article-steps">
+        <li><div>ground-based learning about aircraft systems</div></li>
+        <li><div>cockpit familiarization in a simulation environment</div></li>
+        <li><div>procedural training in an instrument trainer</div></li>
+        <li><div>advanced simulation scenarios</div></li>
+        <li><div>aircraft flight training</div></li>
+      </ol>
+      <p>
+        If the simulation devices share the same cockpit architecture as the aircraft, each stage
+        reinforces the same operational framework. This approach helps create a clear progression
+        from theory to practical application.
+      </p>
+    </div>
+
+    <!-- 6 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Supporting Operational Context</h2>
+      <p>
+        Type-specific simulation environments can also support training that reflects real
+        operational contexts. When simulators replicate a specific aircraft platform, they can
+        be configured to support training scenarios aligned with the aircraft's operational use.
+      </p>
+      <p>These scenarios may include:</p>
+      <ul class="article-list">
+        <li><div>realistic airspace and navigation environments</div></li>
+        <li><div>operational airfields and routes</div></li>
+        <li><div>mission-oriented training exercises</div></li>
+        <li><div>system management scenarios</div></li>
+      </ul>
+      <p>
+        By linking simulation to the aircraft platform, training programs can move beyond
+        procedural instruction toward operational preparation.
+      </p>
+    </div>
+
+    <!-- 7 -->
+    <div class="article-section">
+      <h2 class="article-section__heading">Strengthening the Training Pipeline</h2>
+      <p>
+        Pilot training programs are increasingly designed as integrated systems rather than
+        collections of individual training tools. Within this integrated approach, type-specific
+        simulation plays an important role in connecting different stages of training.
+      </p>
+      <p>
+        By maintaining the same aircraft architecture across the simulation environment, training
+        organizations can create a more coherent learning experience. Students encounter
+        consistent cockpit logic from the earliest training stages through advanced simulation
+        and aircraft operations.
+      </p>
+      <p>
+        This consistency strengthens the entire training pipeline and helps prepare pilots more
+        effectively for real-world flying.
+      </p>
+    </div>
+
+    <!-- 8 — CONCLUSION -->
+    <div class="article-section">
+      <h2 class="article-section__heading">A Consistent Path from Simulation to Flight</h2>
+      <p>
+        As pilot training programs continue to evolve, simulation environments are becoming more
+        closely aligned with the aircraft platforms they support.
+      </p>
+      <p>
+        Type-specific simulation represents an important step in this evolution. By replicating
+        the aircraft cockpit and operational procedures, these systems create a training
+        environment that reinforces consistency across the entire learning process.
+      </p>
+      <p>
+        For training organizations, this approach supports clearer training structures, more
+        efficient learning, and stronger preparation for flight operations.
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="article-cta">
+      <div class="article-cta__text">
+        <strong>Evaluate Your Training Architecture</strong>
+        Discuss how a type-specific training ecosystem built around the Grob G120TP can support
+        modernization of your pilot training program.
+      </div>
+      <a href="../index.html#contact" class="btn btn--primary">Request a Training System Briefing</a>
+    </div>
+
+  </main>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__top">
+    <img src="https://grob-aircraft.com/files/content/logos/GA_logo_white.png" alt="Grob Aircraft SE" class="footer__logo" />
+    <nav class="footer__nav" aria-label="Footer navigation">
+      <a href="../index.html#ecosystem" class="footer__link">Training Ecosystem</a>
+      <a href="../index.html#devices" class="footer__link">Training Devices</a>
+      <a href="../index.html#mission-env" class="footer__link">Mission Environment</a>
+      <a href="../index.html#articles" class="footer__link">Articles</a>
+      <a href="../index.html#contact" class="footer__link">Contact</a>
+    </nav>
+  </div>
+  <div class="footer__inner">
+    <div class="footer__bottom">
+      <span class="footer__copy">&copy; 2026 Grob Aircraft SE. All rights reserved.</span>
+      <span class="footer__legal-text">Grob Aircraft training systems and aircraft-specific simulation environments.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ── Mobile nav ── */
+  (function () {
+    var nav    = document.getElementById('nav');
+    var burger = document.getElementById('nav-burger');
+    var mobile = document.getElementById('nav-mobile');
+
+    function openMenu() {
+      nav.classList.add('nav--open');
+      burger.setAttribute('aria-expanded', 'true');
+      mobile.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('nav-open');
+    }
+    function closeMenu() {
+      nav.classList.remove('nav--open');
+      burger.setAttribute('aria-expanded', 'false');
+      mobile.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('nav-open');
+    }
+
+    burger.addEventListener('click', function () {
+      nav.classList.contains('nav--open') ? closeMenu() : openMenu();
+    });
+
+    mobile.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+  }());
+</script>
+
+</body>
+</html>
